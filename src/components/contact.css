@@ -1,0 +1,40 @@
+.contact{
+    font-family: sans-serif;
+    font-weight:500 ;
+    width:100vw;
+    height:100vh ;
+   
+    
+}
+.cicon{
+    height:100px;
+    width:100px;
+    border-radius: 50%;
+    background:#59d4e8;
+    text-align: center;   
+}
+.svg-sec{
+    width:100% ;
+    height:100% ;
+
+}
+.content-sec{
+    width:100% ;
+    height:100% ;
+
+}
+
+.contact-im{
+    object-fit:cover ;
+    object-position: center;
+    width:100%  ;
+
+}
+
+@media (max-width:500px){
+    .cicon{
+        width:50px ;
+        height:50px;
+        
+    }
+}

@@ -1,0 +1,123 @@
+.about-content{
+     position: relative;
+       height:80vh ;
+       width: 100%;
+       box-shadow: 15px 0px -15px rgba(44, 6, 6, 0.1);
+
+}
+.about-svg{
+    position: relative;
+    top:0 ;
+    left:0 ;
+    width:100% ;
+    height: 100%;
+    box-shadow: 15px 0px -15px rgba(44, 6, 6, 0.1);
+}
+.about-im{ 
+        position: absolute;
+        top:0 ;
+        left:0 ;
+        width:130% ;
+        height: 100%;
+        z-index:-3 ;
+        box-shadow: 15px 0px -15px rgba(44, 6, 6, 0.1);
+        opacity:0.6 ;
+}
+
+.about{    
+    position:relative ;
+    width:auto ;
+    max-width:1800px ;
+    height:80vh;
+    min-height:80vh ;
+    box-shadow: 15px 0px -15px rgba(44, 6, 6, 0.1);
+    
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+
+}
+.about-inner{
+    position: absolute;   
+    left:20% ;
+    top:10% ;
+    font-family: 'Poppins',sans-serif;
+    
+}
+.about-head{
+    font-size: 5rem;
+    color:#775ada;
+    text-transform: uppercase;
+}
+.about p{
+    font-weight: 400;
+    font-size:1.3rem ;
+    font-family:sans-serif ;
+    color:#775ada;
+    
+}
+
+
+.abt-bdy{
+    background :  rgba(167, 199, 207, 0.178) ;
+    height:auto ;
+    width:100vw ;
+}
+.about-team-head{
+    font-size:1.6rem ;
+    font-family: sans-serif;
+    
+
+}
+.abt-bdy .card{
+   
+    background-color: darkcyan;
+    width:300px ;
+    height:600px ;
+}
+
+.card-img-top{
+   
+   transform: translate(100%,-50%);
+    background-color: darkcyan;
+    height: 100px;
+    width:100px ;
+    border-radius: 50%;
+
+}
+.card p{
+    font-size:1rem ;
+}
+
+.card-body{
+    margin-top: 1%;
+}
+
+@media (max-width:900px){
+    .about{
+        height:50vh ;
+    }
+    .about-svg{
+        display:none ;
+        height:0;
+        width:0 ;
+        pointer-events: none;
+    }
+    .about-head{
+        font-size:3rem ;
+        left:2% ;
+    }
+    .about-inner{
+        top:5% ;
+        left:5% ;
+        height:100% ;
+    }
+    .about-content{
+        height:30vh ;
+        padding:0 ;
+        margin:0 ;
+    }
+    .abt-bdy .card{
+        margin-bottom: 50px;
+
+    }
+}

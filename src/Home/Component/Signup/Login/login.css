@@ -1,0 +1,102 @@
+*{
+    padding :0px;
+    margin:0px ;
+    box-sizing: border-box;
+}
+.container-fluid{
+    height:100% ;
+    width :100% ;
+    font-family: 'Bellota', cursive;
+    padding: 0 2 rem ;
+    font-weight: 580;
+    
+}
+.box{
+    height:100%;
+    width:100% ;
+    background-image: url('./wave-2.svg') ;
+    background:translateY(10%) ;
+    background-size: cover;
+    z-index: 3;   
+}
+.svg{  
+    height :100% ;
+    width : 100% ;
+    z-index: -1;
+}
+.svg img
+{
+    width : 110% ;
+    height: 110%;   
+    z-index:-1 ;
+}
+.form{
+    height: 80%;
+    width: auto ;
+    align-items : center ;
+    justify-content: space-evenly;
+   
+}
+.look{  
+    height:80vh ;
+    width: auto;
+    align-items : center ;
+    justify-content: space-between;
+}
+.img{
+    justify-content: center;
+    height:20% ;
+    align-items:center ;      
+}
+.face{
+    height:13vh ;
+    margin:0 .5rem ;
+    width:15vh;
+    border-radius:5vh;
+    z-index:-2 ;
+} 
+
+.log{
+    height:80% ;
+    align-items:center;
+    justify-content: space-around;
+} 
+.b1{
+    margin-right: 10px;
+    background-color: #00A0CE;
+}
+.b2{
+    background-color: #00A0CE;
+}
+.b3{
+    background-color: #00A0CE;
+}
+
+.google-button{
+    padding:1px !important;
+    justify-self: center;
+    align-self:center ;
+    justify-content: between !important;
+    border-radius:0px !important ;
+    width:100% !important ;
+    margin-bottom: 10px !important;
+}
+.github-button{
+    -ms-flex-align: center !important;
+    padding:5px !important;
+    background-color:white;
+    justify-self: center;
+    align-self:center ;
+    justify-content: between !important;
+    border-radius:0px !important ;
+    width:100% !important ;
+    margin-bottom: 10px !important;
+    box-shadow: -1px 0 7px rgba(167, 161, 161, 0.842);
+}
+
+.github-button:hover{
+    background-color: rgba(218, 204, 204, 0.274);
+}
+.g-log{
+    margin:10px ;
+}

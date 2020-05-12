@@ -1,0 +1,12 @@
+*{
+    padding:0px ;
+    margin:0px;
+    box-sizing: border-box;
+}
+.card{
+    border:0px !important;
+    padding-right:10px ;
+}
+.im{
+    margin-top: 40px;
+}

@@ -1,0 +1,116 @@
+*{
+    box-sizing: border-box;
+    padding:0px ;
+    margin:0px ;
+}
+body{
+   background-color: #C1155D;
+   color:white ;
+   font-family: 'Poppins', sans-serif;
+   min-height:100vh ;
+   
+}
+.container{
+    max-width:1200px;
+    display:flex ;
+    margin: 0rem auto ;
+    padding:1.5rem 40px;
+
+}
+.full-grow-height{
+    flex-direction:column ;
+   
+}
+.user-head{
+    display:flex ;
+    justify-content: space-between;
+}
+.user-head .head-nav{
+    display:flex ;
+    justify-content:space-between ;
+}
+.user-head .site{
+    font-family: 'Tillana', cursive;
+    padding:0rem ;
+    margin:0rem ;
+
+}
+.head-nav ul{
+    list-style: none;
+    display:flex ;
+    align-items:center ;
+    justify-content: space-between;
+}
+.head-nav ul li{
+    list-style: none;
+    font-size:1em ;
+    padding:.5rem;
+    
+
+
+}
+.head-nav ul li a{
+    text-decoration: none;
+    color:inherit ;
+}
+.head-nav ul  .profile{
+    display:flex ;
+    justify-content: space-between;
+    align-items:center ;
+   
+}
+.head-nav ul .profile img{
+    height:10vh ;
+    margin:0 .5rem ;
+    width:10vh;
+    border-radius:5vh;
+}
+.main{
+    flex-grow:1 ;
+    display:flex ;
+    flex-direction:column ;
+    justify-content: center;
+    align-items: center;
+
+}
+.home,.book{
+    position: absolute;
+    display:flex;
+    justify-content:center;
+    align-items:center ;
+}
+.user-main-sec,.user-book-sec{
+    display:flex;
+    height:80vh ;
+    width:100% ;
+    display:flex;
+    justify-content:center;
+    align-items:center ;
+}
+.user-main-sec .call-to-action,.user-book-sec .call-to-action{
+    display: flex;
+    flex-direction: column;
+    justify-content:space-between ;
+    align-items:center ;
+    height:30vh ;
+}
+.user-main-sec .call-to-action .title,.user-book-sec .call-to-action .title{
+    font-size:3em ;
+    font-weight:400;
+    margin-bottom:.5rem ;
+    
+}
+.user-main-sec .call-to-action .subtitle,.user-book-sec .call-to-action .subtitle{
+    font-size:1.2em ;
+    font-weight:500;
+    margin-bottom:0rem ;
+}
+.user-main-sec .call-to-action .btn,.user-book-sec .call-to-action .btn{
+    width :18vh;
+    height:6vh;
+    border-radius:3vh;
+    background-color:#33A7CB ;
+    border:none;
+    color:inherit
+}
+
