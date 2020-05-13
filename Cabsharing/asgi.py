@@ -17,7 +17,9 @@ https://docs.djangoproject.com/en/3.0/howto/deployment/asgi/
 
 import os
 from channels.layers import get_channel_layer
+from django.core.asgi import get_asgi_application
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "Cabsharing.settings")
-
+django.setup()
+application = get_asgi_application()
 channel_layer = get_channel_layer()
