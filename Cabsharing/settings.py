@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 
 import os
+import dj_database_url
 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -27,7 +28,7 @@ SECRET_KEY = 'k+1xh&^ueh1^pls5+b2%pdhl*meed_7b=7scycdrh985hcwrr5'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['humraahi-iitg.herokuapp.com' ,'127.0.0.1','http://127.0.0.1:8000']
+ALLOWED_HOSTS = ['humraahi.herokuapp.com' ,'127.0.0.1','http://127.0.0.1:8000','0.0.0.0','localhost']
 
 # 640857218379-3qjvelmqgnpvd8k4k868s66mtrrbr2u8.apps.googleusercontent.com
 
@@ -66,6 +67,9 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'rest_auth.registration',
+
+
+    'whitenoise.runserver_nostatic'
     # 'rest_framework_social_oauth2',
     
 
@@ -160,7 +164,7 @@ CHANNEL_LAYERS = {
     'default': {
 
         # the chat messages will stored in the redis server 
-        'BACKEND': 'from channels_redis.core import RedisChannelLayer',
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
         'CONFIG': {
             "hosts": [('127.0.0.1', 6379)],
                #localhost,port
@@ -194,8 +198,8 @@ DATABASES = {
         #'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'cabsharing',
-        'USER' : 'postgres' ,
-        'PASSWORD': '1234' ,
+        'USER' : 'djtvozkterzhhl' ,
+        'PASSWORD': '2b6b464e18876bb123417b2108ffd82bfac9741fb8d4c8d09eb76da06d8aa478' ,
         # 'TEST': {
         #     'NAME': 'chattests'
         # },
@@ -203,6 +207,9 @@ DATABASES = {
     }
 }
 
+
+dj_database_url.config()
+DATABASES['default'].update(db_from_env)
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
