@@ -16,6 +16,7 @@ https://docs.djangoproject.com/en/3.0/howto/deployment/asgi/
 # application = get_asgi_application()
 
 import os
+import django
 from channels.layers import get_channel_layer
 from django.core.asgi import get_asgi_application
 
