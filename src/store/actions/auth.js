@@ -101,7 +101,7 @@ export const authSignUp = (username,email,pass1,pass2) =>{
     return dispatch => {
         localStorage.setItem('username',username) ;
         dispatch(authStart()) ;
-        axios.post("http://humraahi-iitg.herokuapp.com/registration/",
+        axios.post("http://humraahi-iitg.herokuapp.com/rest-auth/registration/",
         {
             username:username, 
             email:email,
