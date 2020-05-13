@@ -28,7 +28,7 @@ SECRET_KEY = 'k+1xh&^ueh1^pls5+b2%pdhl*meed_7b=7scycdrh985hcwrr5'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['humraahi.herokuapp.com' ,'127.0.0.1','http://127.0.0.1:8000','0.0.0.0','localhost']
+ALLOWED_HOSTS = ['humraahi-iitg.herokuapp.com' ,'127.0.0.1','http://127.0.0.1:8000','0.0.0.0','localhost']
 
 # 640857218379-3qjvelmqgnpvd8k4k868s66mtrrbr2u8.apps.googleusercontent.com
 
@@ -197,7 +197,7 @@ DATABASES = {
         #'ENGINE': 'django.db.backends.sqlite3',
         #'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'cabsharing',
+        'NAME': 'd11m83pttbg8bk',
         'USER' : 'djtvozkterzhhl' ,
         'PASSWORD': '2b6b464e18876bb123417b2108ffd82bfac9741fb8d4c8d09eb76da06d8aa478' ,
         # 'TEST': {
