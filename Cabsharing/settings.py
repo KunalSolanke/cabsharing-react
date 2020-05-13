@@ -160,7 +160,7 @@ CHANNEL_LAYERS = {
     'default': {
 
         # the chat messages will stored in the redis server 
-        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'BACKEND': 'from channels_redis.core import RedisChannelLayer',
         'CONFIG': {
             "hosts": [('127.0.0.1', 6379)],
                #localhost,port
