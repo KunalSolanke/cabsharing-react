@@ -27,7 +27,7 @@ SECRET_KEY = 'k+1xh&^ueh1^pls5+b2%pdhl*meed_7b=7scycdrh985hcwrr5'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['cabharing-react.herokuapp.com' ,'127.0.0.1','http://127.0.0.1:8000']
+ALLOWED_HOSTS = ['humraahi-iitg.herokuapp.com' ,'127.0.0.1','http://127.0.0.1:8000']
 
 # 640857218379-3qjvelmqgnpvd8k4k868s66mtrrbr2u8.apps.googleusercontent.com
 
