@@ -203,13 +203,12 @@ DATABASES = {
         # 'TEST': {
         #     'NAME': 'chattests'
         # },
-        'HOST':'localhost'
+        'HOST':'ec2-18-210-214-86.compute-1.amazonaws.com'
     }
 }
 
 
-db_from_env=dj_database_url.config()
-DATABASES['default'].update(db_from_env)
+
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
