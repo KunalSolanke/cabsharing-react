@@ -31,7 +31,7 @@ googleapis-common-protos==1.51.0
 h2==3.2.0
 hiredis==1.0.1
 hpack==3.0.0
-httplib2==0.17.0
+httplib2==0.18.0
 hyperframe==5.2.0
 hyperlink==19.0.0
 idna==2.9
