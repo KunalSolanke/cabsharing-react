@@ -11,6 +11,8 @@ from django.shortcuts import get_object_or_404
 #now this list view only support get reqquest for post we have to use listcreaeview
 
 
+#todo
+
 class BookingsviewSets(viewsets.ModelViewSet) :
     authentication_classes = [TokenAuthentication,SessionAuthentication,BasicAuthentication]
     permission_classes = [IsAuthenticated]
@@ -34,9 +36,9 @@ class UserBookings(viewsets.ModelViewSet) :
 
     def get_queryset(self) :
        user = self.request.user
-       print(user)
+    #    print(user)
        state = self.kwargs['state']  
-       print(state)
+    #    print(state)
        if state == 'prev' : 
             queryset = Bookings.objects.filter(user__id = user.id,is_booked = True)
 
@@ -47,7 +49,7 @@ class UserBookings(viewsets.ModelViewSet) :
            queryset = Bookings.objects.filter(user__id = user.id)
 
             
-       print(queryset)
+    #    print(queryset)
        return queryset
 
 
@@ -55,7 +57,7 @@ class UserBookings(viewsets.ModelViewSet) :
             kwargs = {
            'user': self.request.user # Change 'user' to you model user field.
             }
-            print("saved")
+            # print("saved")
  
             serializer.save(**kwargs)
         
@@ -86,20 +88,31 @@ class MatchesListApi(ListAPIView) :
 
     def get_queryset(self) :
         id=self.kwargs['pk']
-        print(id)
+        # print(id)
         if id == '0' :
            user_booking=Bookings.objects.filter(user__id = self.request.user.id).last()
         else :
             user_booking = Bookings.objects.get(pk=id)
-        print(user_booking)
-        print(user_booking.place)
+        # print(user_booking)
+        # print(user_booking.place)
         queryset = Bookings.objects.filter(
             Q(place__icontains = user_booking.place)  & Q(date__exact = user_booking.date) & Q(is_booked =False)
         ).exclude(user__id = self.request.user.id)
         
+         #TODO change to code below  and check the timezone
+        #delay = timezone.timedelta(hours=5)
+        # queryset = Bookings.objects.filter(
+        #    Q(place__icontains = user_booking.place)  & Q(date__range =user_booking.date) & Q(is_booked =False)
+         #     & Q(time_range=(user_booking.time-delay,user_booking.time+delay))
+        #).exclude(user__id = self.request.user.id)
 
-        print(user_booking.date)
-        print(queryset)
+
+
+
+
+
+        # print(user_booking.date)
+        # print(queryset)
         return queryset 
 
 

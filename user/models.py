@@ -7,6 +7,8 @@ from django.dispatch import receiver
 
 
 
+#todo
+
 # Create your models here.
 
 class Profile(models.Model) : 
@@ -107,3 +109,20 @@ class Booked_rides(models.Model) :
 #         return self.messages.objects.all().order_by('-timestamp')[:10]
 
 
+
+
+
+
+
+
+
+
+
+#TODO uncomment code below ,delete migrations and remigrate
+#for 3-4 users 
+
+# class Booked_rides(models.Model) :
+#     users=models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='users')
+#     is_complete=models.BooleanField(("match_status"),default=False)
+#     bookings = models.ManyToManyield(Bookings,related_name='book1',on_delete=models.CASCADE,null=True)
+#     decided_time=models.TimeField(default='')

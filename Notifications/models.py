@@ -5,7 +5,7 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 
 
-
+#todo
 # Create your models here.
 
 class Notification(models.Model) :
@@ -34,3 +34,9 @@ def create_notification(sender,instance,created,**kwargs) :
 #        instance.profile.save()
 #     except:
 #         Profile.objects.create(user=instance)
+
+
+
+
+#todo
+#in the above mode change the 'TO' as manytomanyfield to the users

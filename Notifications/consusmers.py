@@ -7,6 +7,13 @@ from django.db.models import Q
 from user.models import Booked_rides,Bookings 
 
 
+
+
+
+
+
+#Todo change backend for multiple users sharing ride 
+
 class NoteConsumer(WebsocketConsumer) :
 
     def fetch_notifications(self,data):
@@ -26,6 +33,28 @@ class NoteConsumer(WebsocketConsumer) :
     def new_notification(self,data) :
         print(data['notification'])
         
+
+
+
+         #Todo this is for multiple users in the ride 
+
+            # if Booked_rides.objects.get(pk=data['bookfromid']).exits() :
+            #     ride=Booked_rides.objects.get(pk=data['bookfromid'])
+            #     ride.bookings.add(bookings1)
+            #     if(len(ride.bookings))==4 :
+            #         ride.is_complete=True ;
+            #     ride.save()
+
+            # else :
+            #     ride=Booked_rides.objects.create(is_complete=False)
+            #     ride.bookings.add(bokings1)
+            #     to_user = User.objects.get(username=data['to'])
+            #     rides.bookings.add(bookings2)
+            #     ride.users.add(author_user,to_user)
+            #     ride.save()
+
+
+
         author_user = User.objects.get(username = data['from'])
         to_user = User.objects.get(username=data['to'])
         notification = Notification.objects.create(From=author_user,To=to_user

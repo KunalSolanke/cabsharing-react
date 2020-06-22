@@ -2,7 +2,9 @@ from rest_framework import serializers
 from user.models import Bookings,Booked_rides,Places,Profile
 
 
- 
+#Todo this api or not nested ,thier depth is zero ,so We have to more api calls 
+#Todo which can be reduced making them nested But for that we will have to change a significant amount of logic both on fontend
+#Todo and backend
 
 class BookingsSerializer(serializers.ModelSerializer) :
     class Meta :
