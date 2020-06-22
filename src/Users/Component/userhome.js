@@ -34,6 +34,12 @@ const MyMapComponent = compose(
 //import Bookingslist from './Booking/UserBookings/container/bookingslist';
 
 class Userhome extends Component {
+  initializeCHat(){
+    
+    NotWebscoketServiceInstance.connect()
+    
+    this.waitforSocketConnection(()=>{NotWebscoketServiceInstance.fetchMessages(this.props.username)})
+} 
     state = {
     isMarkerShown: false,
   }
@@ -53,7 +59,7 @@ class Userhome extends Component {
 
     constructor(props) {
         super(props)
-        // this.initializeCHat()
+        this.initializeCHat()
         NotWebscoketServiceInstance.addCallbacks(this.props.setmessage.bind(this),this.props.addmessage.bind(this))
         this.state = {
              load:true,
@@ -61,11 +67,32 @@ class Userhome extends Component {
         }
     }
     
-    
+    waitforSocketConnection(callback) {
+      const component = this
+     
+       setTimeout(
+           function(){
+              if (NotWebscoketServiceInstance.state() === 1 ) {
+                  console.log("connetion is secure") ;
+                      callback() ;
+              
+                  return ;
+              }else {
+                  console.log("waiting for connection ...")
+                  component.waitforSocketConnection(callback)
+                 
+              }
+  
+            
+          }
+       ,100) ;}
 
 
   
     componentDidMount(){
+      if(NotWebscoketServiceInstance.state === 1){
+        NotWebscoketServiceInstance.disconnect() ;
+      }
       this.delayedShowMarker()
       var nav= document.querySelector('.main-nav') ;
       nav.style.display = 'none' ;

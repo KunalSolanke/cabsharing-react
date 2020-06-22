@@ -18,7 +18,7 @@ urlpatterns = [
     url(r'^rest-auth/', include('rest_auth.urls')),
     url(r'^rest-auth/registration/', include('rest_auth.registration.urls')) ,
     path('api-auth/', include('rest_framework.urls')) ,
-    re_path(".*",TemplateView.as_view(template_name="index.html"))
+
    
    
     
@@ -26,4 +26,4 @@ urlpatterns = [
 ]
 urlpatterns =urlpatterns +  static(settings.STATIC_URL,document_root=settings.STATIC_ROOT) 
 urlpatterns =urlpatterns +  static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
-
+urlpatterns+=[ re_path(".*",TemplateView.as_view(template_name="index.html"))]

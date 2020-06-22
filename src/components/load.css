@@ -36,3 +36,9 @@
          opacity: 0;
     }
 }
+
+@media(max-width:900px){
+    .line-drawing-demo{
+        transform: rotateZ('90deg');
+    }
+}

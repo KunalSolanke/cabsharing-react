@@ -17,15 +17,10 @@ import NotWebscoketServiceInstance from '../Notification/notWebsocket';
 
 class UserLayout extends React.Component {
 
-  initializeCHat(){
-    
-    NotWebscoketServiceInstance.connect()
-    
-    this.waitforSocketConnection(()=>{NotWebscoketServiceInstance.fetchMessages(this.props.username)})
-}  
+  
    constructor(props) {
      super(props)
-     this.initializeCHat()
+  
      this.state = {
         
      }
@@ -109,7 +104,7 @@ class UserLayout extends React.Component {
    notification.close(key)
   }
   componentDidMount(){
-    NotWebscoketServiceInstance.disconnect()
+  
   }
 
    

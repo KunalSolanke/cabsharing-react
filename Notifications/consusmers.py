@@ -24,7 +24,7 @@ class NoteConsumer(WebsocketConsumer) :
     
 
     def new_notification(self,data) :
-       
+        print(data['notification'])
         
         author_user = User.objects.get(username = data['from'])
         to_user = User.objects.get(username=data['to'])
@@ -113,6 +113,7 @@ class NoteConsumer(WebsocketConsumer) :
  
     def receive(self, text_data):
         data = json.loads(text_data)
+        
         self.commands[data['command']](self,data)
 
 

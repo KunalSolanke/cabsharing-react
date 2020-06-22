@@ -56,6 +56,7 @@ class CustomForm extends React.Component {
   }
 
   handleChange2 (event){
+    console.log("changed")
     this.setState({
       friends : event.target.value
     }) ;
@@ -113,12 +114,15 @@ class CustomForm extends React.Component {
     console.log(this.state.place,this.state.time,this.state.date)
     console.log(event.target)
     event.preventDefault()
-    this.setState({
-      friends:event.target.elements[0].value,
-      allow_with:event.target.elements[1].value,
-      special_req:event.target.elements[2].value
-    })
-   
+    // this.setState({
+    //   friends:event.target.elements[0].value,
+    //   allow_with:event.target.elements[1].value,
+    //   special_req:event.target.elements[2].value
+    // })
+    axios.defaults.headers = {
+      'Content-Type': 'application/json',
+      'Authorization': `Token ${this.props.token}`
+  }
     axios.post(" http://127.0.0.1:8000/uapi/curr/userbookings/",
     {
       place: this.state.place,
@@ -127,7 +131,7 @@ class CustomForm extends React.Component {
       time:this.state.time,
       allow_with : this.state.allow_with,
       special_req :this.state.special_req,
-      user : 2,
+      user : 1,
      
       
       
@@ -135,7 +139,10 @@ class CustomForm extends React.Component {
       this.setState({
         load : true
       })
-      
+      axios.defaults.headers = {
+        'Content-Type': 'application/json',
+        'Authorization': `Token ${this.props.token}`
+    }
     axios.get("http://127.0.0.1:8000/uapi/matches/0/").then(
       res => {
         // console.log(res.data) 
@@ -175,7 +182,7 @@ class CustomForm extends React.Component {
 render() {
   if(this.state.load === true) {
    return ( 
-   <UserLayout>
+  
 
      <div style ={{ height : "100%"}} className = "row justify-content-space-evenly align-items-center" >
 
@@ -183,21 +190,16 @@ render() {
       </div>
          
           
-      </UserLayout>
+    
    
    
    ) }
   else if ( this.state.fetched === true){
 
     return (
-      <UserLayout>
-
-
-
-          <Booking data={this.state.matchedbookings} name = 'Send Request'/>
-         
           
-      </UserLayout>
+          <Booking data={this.state.matchedbookings} name = 'Send Request'/>         
+    
   )
   }
   else {
@@ -255,7 +257,7 @@ render() {
 <div class="form-group row">
 <label for="colFormLabel" class="col-sm-10 col-form-label col-form-label">No of Friends</label>
 
-  <select class="form-control sel" name="" id="" onChange={this.handleChange2}>
+  <select class="form-control sel" name="" id="" onChange={(e)=>this.handleChange2(e)}>
     <option>0</option>
     <option>1</option>
     <option>2</option>
@@ -265,7 +267,7 @@ render() {
 <div class="form-group row">
 <label for="colFormLabel" class="col-sm-10 col-form-label col-form-label">How many to share With ?</label>
 
-  <select class="form-control sel" name="" id="" onChange={this.handleChange1}>
+  <select class="form-control sel" name="" id="" onChange={(e)=>this.handleChange1(e)}>
     <option>1</option>
     <option>2</option>
     <option>3</option>
@@ -276,7 +278,7 @@ render() {
 <div class="form-group row">
 <label for="colFormLabel" class="col-sm-10 col-form-label col-form-label">Emmergency</label>
 
-<select  onChange={this.handleChange}  className='sel'>
+<select  onChange={(e)=>this.handleChange(e)}  className='sel'>
             <option value="None">None</option>
             <option value="Medical">Medical Emmergency</option>
             <option value="Family">Family</option>

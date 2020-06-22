@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 import CustomForm from '../../BookingForm/form' ;
 import UserLayout from '../../../../../containers/userLayout';
 import Taxisvg from '../../../../../components/Taxisvg';
+import AbsoluteWrapper from '../../../../../components/Absolutewrapper';
 
 export class Bookform extends Component {
 
@@ -13,6 +14,7 @@ export class Bookform extends Component {
     } 
     render() {
         return (
+            <AbsoluteWrapper >
             <UserLayout>
                 <div className="row justify-content-center align-items-center p-3 mb-3">
                         <div className="col-lg-6 col-sm-10 col-xs-12">
@@ -26,6 +28,7 @@ export class Bookform extends Component {
                         </div>
                 </div>
             </UserLayout>
+            </AbsoluteWrapper>
         )
     }
 }

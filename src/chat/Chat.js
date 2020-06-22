@@ -146,15 +146,15 @@ export class Chat extends Component {
                 {
                 this.props.match.params.chatId ? 
 				<div className="col-md-8 col-xl-6 chat">
-					<div className="card">
-						<div className="card-header msg_head">
+					<div className="card cardx">
+						<div className="card-header msg_head ">
 							<div className="d-flex bd-highlight">
 								<div className="img_cont">
 									<img src="https://static.turbosquid.com/Preview/001292/481/WV/_D.jpg" alt="" className="rounded-circle user_img" />
 									<span className="online_icon"></span>
 								</div>
 								<div className="user_info">
-									<span>Chat with Akash</span>
+									<span>Chat</span>
 									<p>1767 Messages</p>
 								</div>
 								<div className="video_cam">
@@ -172,11 +172,11 @@ export class Chat extends Component {
 								</ul>
 							</div>
 						</div>
-						<div className="card-body msg_card_body" id="chat-log">
+						<div className="card-body cardx-body msg_card_body" id="chat-log">
                             {this.props.messages && this.renderMessages(this.props.messages)}
 							
 						</div>
-						<div className="card-footer">
+						<div className="cardx-footer card-footer">
                             <form onSubmit ={this.submithandler} >
 							<div className="input-group">
 								<div className="input-group-append" >

@@ -57,18 +57,16 @@ componentWillUpdate(newProps) {
     const places = this.state.places.map(
       place=> {
         return (
-          <div className="row justify-content-center align-items-center p-4 ml-3" style ={{ height : '80vh'}}>
+          <div className="row justify-content-center align-items-center p-4 ml-3" style ={{ height : 'auto'}}>
             <div className="col-lg-2 col-sm-2"></div>
             <div classdName="col-lg-10 col-sm-10">
               
-              <img className="mb-2 img-responsive"src={place.image} alt=""style={{ width:'70vw',height:'60vh'}}></img>            
+              <img className="mb-2 img-responsive"src={place.image} alt=""style={{ width:'70vw',height:'60vh' ,objectFit:'cover'}}></img>            
               <div className="mb-3">
                  <h3 style={{color:"#000"}}>{place.name}</h3>
                  <p>{place.palce_info}</p>
              </div>
            </div>
-
-            
 
           </div>
         )

@@ -66,13 +66,24 @@ export class Sidepanel extends Component {
 		this.props.addChat() ;
 	}
     render() {
-		const activechats= this.props.chats.map(chat =>{ return (
+		const activechats= this.props.chats.map(chat =>{
+			var c=new String();
+		
+			chat.participants.forEach(p=>{
+				console.log(typeof(p))
+			
+				if(p!==this.props.username){
+					
+					 c=p ;
+				}
+			})
+			 return (
 			<Contact id = {chat.id}
-			author={chat.participants}/>
+			author={c}/>
 		)})
         return (
-            <div className="col-md-4 col-xl-3 chat"><div className="card mb-sm-3 mb-md-0 contacts_card">
-					<div className="card-header">
+            <div className="col-md-4 col-xl-3 chat"><div className="card cardx mb-sm-3 mb-md-0 contacts_card">
+					<div className="card-header cardx-header">
 						<div className="input-group">
 							<input type="text" placeholder="Search..." name="" className="form-control search" />
 							<div className="input-group-prepend">
@@ -80,12 +91,12 @@ export class Sidepanel extends Component {
 							</div>
 						</div>
 					</div>
-					<div className="card-body contacts_body">
+					<div className="card-body cardx-body contacts_body">
 						<ui className="contacts">
 						{activechats}
 						</ui>
 					</div>
-					<div className="card-footer">
+					<div className="card-footer cardx-footer">
 						<ADDChatModal 
 						isVisible={this.props.showpopup}
 						close ={() => this.props.closeaddchatpopup()}/ >

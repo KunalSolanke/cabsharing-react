@@ -1,10 +1,18 @@
-import React from 'react'
+import React,{useEffect} from 'react'
 import aboutsvg from '../assets/orangesvg.png' ;
 import './about.css'
 import kunal from '../assets/kunal.jpg'
 import codeclub from '../assets/codeclub.png'
 
 function About() {
+    useEffect(()=>{
+        var nav= document.querySelector('.main-nav') ;
+      if(nav.style.display ==='none' ){
+          nav.style.display='contents';
+      }
+
+    },[])
+
     return (
         <div className="abt-bdy">
 <div className="container-fluid about mb-5 p-2 ">

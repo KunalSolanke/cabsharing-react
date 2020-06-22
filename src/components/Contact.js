@@ -1,9 +1,16 @@
-import React from 'react'
-import contactsvg from '../assets/contact.svg' ;
+import React ,{useEffect}from 'react'
+import contactsvg from '../assets/contact1.jpg' ;
 import './contact.css'
 
 
 function Contact() {
+    useEffect(()=>{
+        var nav= document.querySelector('.main-nav') ;
+      if(nav.style.display ==='none' ){
+          nav.style.display='contents';
+      }
+
+    },[])
     return (
         <div className="container-fluid contact">
             

@@ -18,6 +18,7 @@ class AddchatForm extends React.Component {
     console.log('Finish:', values);
     const {usernames } =this.state
     const combinedusers = [...usernames,this.props.username]
+    console.log(combinedusers)
     axios.defaults.headers = {
       'Content-Type' : "application/json",
        'Authorization' : `Token ${this.props.token}`
@@ -27,6 +28,7 @@ class AddchatForm extends React.Component {
       participants : combinedusers
     }).then(res => {
       this.props.history.push(`/users/chat/${res.data.id}`)
+      console.log('hello')
       this.props.closeaddchatpopup()
       this.props.getuserchats(this.props.username,this.props.token)
     }).catch(err => {

@@ -41,22 +41,23 @@ class LoginForm extends React.Component {
     console.log('Failed:', errorInfo);
   };
 
-  handlesubmit = event => {
+  handlesubmit = (event)=> {
   
-   
-  
-   
     event.preventDefault() ;
    
     const username=event.target.elements[0].value ;
     const password= event.target.elements[1].value ;
     this.props.onAuth(username,password) ;
-    if(this.props.error === null) {
+    if(this.props.error === null && !this.props.loading) {
+      
       this.props.history.push("/users") ;
+      console.log('hi')
     }
-
    
   }
+   
+  
+
 
   
  render() {

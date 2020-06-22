@@ -30,7 +30,7 @@
 }
 .card{
   border:0px !important;
-  padding-right:10px ;
+  padding-right:0px ;
   background-color:white !important;
   height:auto !important ;
 }
@@ -56,4 +56,8 @@
 
 h3{
   color:white ;
+}
+
+.modal-body{
+z-index:0 !important ;
 }

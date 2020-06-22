@@ -5,6 +5,7 @@ import axios from 'axios' ;
 import UserLayout from '../../../../../containers/userLayout';
 import {connect}  from 'react-redux' ;
 import {withRouter} from 'react-router-dom' ;
+import Absolutewrapper from '../../../../../components/Absolutewrapper';
 
 
 
@@ -46,6 +47,8 @@ class Bookingslist extends Component {
 
    
     componentDidMount(){
+        var nav= document.querySelector('.main-nav') ;
+      nav.style.display = 'none' ;
         console.log('component mounted')
         // window.addEventListener('before unload')
         
@@ -67,6 +70,7 @@ class Bookingslist extends Component {
     }
     render() {
         return (
+          
             <UserLayout>
                 <div className="row justify-content-center align-items-center mb-3 p-3">
                 <div className ="col-lg-10 col-sm-12 col-xs-12">
@@ -74,6 +78,7 @@ class Bookingslist extends Component {
                   </div>
                   </div>
             </UserLayout>
+         
         )
     }
 }

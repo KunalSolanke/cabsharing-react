@@ -5,6 +5,7 @@ import axios from 'axios' ;
 import UserLayout from '../../../../../containers/userLayout';
 import {connect}  from 'react-redux' ;
 import {withRouter} from 'react-router-dom' ;
+import Absolutewrapper from '../../../../../components/Absolutewrapper';
 
 
 
@@ -20,6 +21,7 @@ class PrevBookingslist extends Component {
     }
     
     componentWillReceiveProps(newProps){
+      
         console.log(newProps.token)
         if(newProps.token){
         axios.defaults.headers = {
@@ -36,8 +38,13 @@ class PrevBookingslist extends Component {
         }
 
     }
+    componentDidMount(){
+        var nav= document.querySelector('.main-nav') ;
+        nav.style.display = 'none' ;
+    }
     render() {
         return (
+            <Absolutewrapper>
             <UserLayout>
                   <div className="row justify-content-center align-items-center mb-3 p-3">
                 <div className="col-lg-8 col-sm-10 col-xs-12">
@@ -45,6 +52,7 @@ class PrevBookingslist extends Component {
                 </div>         
                 </div>
             </UserLayout>
+            </Absolutewrapper>
         )
     }
 }

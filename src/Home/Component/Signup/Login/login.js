@@ -23,9 +23,18 @@ class Login extends Component {
 
 
     
-    
+    componentDidMount(){
+        var nav= document.querySelector('.main-nav') ;
+      if(nav.style.display ==='none' ){
+          nav.style.display='contents';
+      }
+    }
 
-   
+   componentWillReceiveProps(newProps){
+       if(this.props!== newProps){
+       this.props=newProps ;
+       }
+   }
     render() {
         let error = null ;
         if(this.props.error){

@@ -64,6 +64,12 @@ class Register extends Component {
     }
   }
    
+  componentDidMount(){
+    var nav= document.querySelector('.main-nav') ;
+  if(nav.style.display ==='none' ){
+      nav.style.display='contents';
+  }
+}
 
 
 

@@ -57,15 +57,15 @@ componentWillUpdate(newProps) {
     const places = this.state.places.map(
       place=> {
         return (
-          <div className="row justify-content-between align-items-center b-4 bg-white p-2 mb-3 rounded" style={{height:'25%',borderBottom:'rgba(0, 161, 206, 1)',borderRadius:'20px'}} >
+          <div className="row justify-content-between align-items-center  place b-4  p-2 mb-3 rounded" style={{height:'auto',borderBottom:'rgba(0, 161, 206, 1)',borderRadius:'20px'}} >
        
-            <div className = "col-lg-7 col-sm-8">
+            <div className = "col-lg-7 col-sm-12">
                 <div>
             <h3 classNmae="text-dark" style={{color:"#000"}}>{place.name}</h3>
             <p>{place.palce_info}</p>
             </div>
             </div>
-            <div  className = "col-lg-5 col-sm-8" >
+            <div  className = "col-lg-5 col-sm-12" >
               <img classNames="img img-responsive img-rounded" src={place.image} alt=""style={{ height:'18vh',width:'100%',objectFit:'contain',overflow:'hidden'}}></img>
             </div>           
         </div>
@@ -78,7 +78,7 @@ componentWillUpdate(newProps) {
     )
    
     return (
-      <div style={{height:'90vh',overflow:'scroll'}}>
+      <div style={{height:'90vh',overflow:'scroll'}} className="new_scroll mb-5 p-4">
        {places}
       </div>
     );

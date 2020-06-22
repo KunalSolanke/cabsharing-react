@@ -28,7 +28,7 @@ SECRET_KEY = 'k+1xh&^ueh1^pls5+b2%pdhl*meed_7b=7scycdrh985hcwrr5'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['humraahi-iitg.herokuapp.com' ,'127.0.0.1','http://127.0.0.1:8000','0.0.0.0','localhost']
+ALLOWED_HOSTS = ['humraahi-iitg.herokuapp.com' ,'127.0.0.1','http://127.0.0.1:8000','0.0.0.0','localhost','ec2-54-175-117-212.compute-1.amazonaws.com','*.example.com']
 
 # 640857218379-3qjvelmqgnpvd8k4k868s66mtrrbr2u8.apps.googleusercontent.com
 
@@ -197,13 +197,14 @@ DATABASES = {
         #'ENGINE': 'django.db.backends.sqlite3',
         #'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'd11m83pttbg8bk',
-        'USER' : 'djtvozkterzhhl' ,
-        'PASSWORD': '2b6b464e18876bb123417b2108ffd82bfac9741fb8d4c8d09eb76da06d8aa478' ,
+        'NAME': 'd5694qn4pfsgnb',
+        'USER' : 'pkozjzangfvkux' ,
+        'PASSWORD': '95932083794db167040e65833aca9d7a96eefe691df7e330d649f483d49749bd' ,
+        
         # 'TEST': {
         #     'NAME': 'chattests'
         # },
-        'HOST':'ec2-18-210-214-86.compute-1.amazonaws.com'
+        'HOST':'ec2-54-175-117-212.compute-1.amazonaws.com'
     }
 }
 

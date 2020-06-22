@@ -39,6 +39,10 @@ const   Home  = ()=>{
            ld+=1
          
        },4000)
+       var nav= document.querySelector('.main-nav') ;
+      if(nav.style.display ==='none' ){
+          nav.style.display='contents';
+      }
     
 },[])
 
@@ -104,7 +108,7 @@ const   Home  = ()=>{
 <div className="container-fluid">
     <div className="row p-3 mb-2 justify-content-center align-items-center"> 
         <div className='col-lg-12  col-sm-10 justify-content-center  align-center p-3'> 
-            <div className="card" >
+            <div className="card pr-2" >
             <div className="row align-items-center">
             <div className="col-lg-4 col-sm-6 align-items-center">
                  <animated.img src={card1} alt="" className="im img-responsive" style={action} width="100%"></animated.img>
@@ -130,7 +134,7 @@ const   Home  = ()=>{
     <div className="row p-3 mb-2 justify-content-center align-center">
        
         <div className='col-lg-12  col-sm-10 justify-content-center bg-white align-center p-3'> 
-            <div className="card bg-white">
+            <div className="card bg-white pr-2">
             <div className="row align-items-center">
             <div className="col-lg-8 col-sm-6 justify-content-center p-3">
             <animated.div className="card-body justify-content-between" >
@@ -156,7 +160,7 @@ const   Home  = ()=>{
             
        
         <div className='col-lg-12  col-sm-10 justify-content-center  align-center p-3'> 
-            <div className="card" >
+            <div className="card pr-2" >
             <div className="row align-items-center">
             <div className="col-lg-4 col-sm-6 align-items-center">
                  <img src={card3} alt="" className="im img-responsive" width="100%"></img>

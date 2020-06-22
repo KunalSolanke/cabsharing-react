@@ -22,8 +22,8 @@ export class Contact extends Component {
 									<span className="online_icon"></span>
 								</div>
 								<div className="user_info">
-									<span>{this.props.author[0]}</span>
-									<p>Akash is online</p>
+									<span>{this.props.author}</span>
+									<p>{this.props.author} is online</p>
 								</div>
 							</div>
 							

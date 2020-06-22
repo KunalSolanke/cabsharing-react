@@ -17,9 +17,28 @@ const IconText = ({ icon, text }) => (
 
 class  Booking extends Component {
 
-  onFinish = name => {
+
+  constructor(props) {
+    super(props)
+     this.notify =this.notify.bind(this)
+     this.onchat=this.onchat.bind(this)
+  
+    this.state = {
+     load: false ,
+     fetched : false ,
+     matches : [],
+     profiles: [],
+     currbookid: 0
     
+   
+    }
+    this.clickhandler = this.clickhandler.bind(this)
+  }
+
+  
+  onchat(name){
     
+    console.log("hi",this.props.token)
     const combinedusers = [name,this.props.username]
     axios.defaults.headers = {
       'Content-Type' : "application/json",
@@ -39,23 +58,6 @@ class  Booking extends Component {
       )
     })
   };
-
-
-  constructor(props) {
-    super(props)
-     this.notify =this.notify.bind(this)
-  
-    this.state = {
-     load: false ,
-     fetched : false ,
-     matches : [],
-     profiles: [],
-     currbookid: 0
-    
-   
-    }
-    this.clickhandler = this.clickhandler.bind(this)
-  }
 
   async clickhandler(e,id) {
     this.setState(
@@ -100,6 +102,7 @@ class  Booking extends Component {
 
 
    notify (username,place,id) {
+     console.log('hello')
     const NotifyObj = {
        command: 'new_notification',
        from : this.props.username,
@@ -131,31 +134,32 @@ class  Booking extends Component {
        
       return (
         <Card>
-          <div class = "row">
-            <div class = "col-lg-6">
-              <h3>
-                {this.state.profiles[index].Name}
-              </h3>
-              <p>
-                Going to<br/>: {match.place}<br/>
-                on : {match.date} <br />
-                friends:{match.allow_with}
-              </p>
-              
-              <button onCLick ={()=>this.onFinish(this.state.profiles[index].Name)}class="btn btn-primary" type='submit'>Chat</button><br/><br/>
-              <button  onClick ={() => this.notify(this.state.profiles[index].Name,match.place,match.id)} class="btn btn-primary"type='submit'>Send Request</button><br/>
-              
-              
-
-            </div>
-            <div class="col-lg-6">
+          <div className = "row align-items-center justify-content-around">
+          <div className="col-lg-4 col-sm-12">
               <img
-            width={200}
+             className="profile_pic"
             
             alt="logo"
             src={this.state.profiles[index].profile_pic}
           />
           </div>
+            <div className = "col-lg-8 col-sm-12 col-xs-12">
+              <h3>
+                {this.state.profiles[index].Name}
+              </h3>
+              <p>
+                Going to: {match.place}<br/>
+                on : {match.date} <br />
+                friends:{match.allow_with}
+              </p>
+              
+              <button onClick ={()=>this.onchat(this.state.profiles[index].Name)}class="btn btn-primary" type='submit'>Chat</button><br/><br/>
+              <button  onClick ={() => this.notify(this.state.profiles[index].Name,match.place,match.id)} class="btn btn-primary"type='submit'>Send Request</button><br/>
+              
+              
+
+            </div>
+           
           </div>
            </Card>
 
@@ -178,8 +182,8 @@ class  Booking extends Component {
     renderItem={item => (
       <List.Item
         key={item.place}
-        className="mb-3"
-        style={{backgroundColor:'#43c7d8'}}
+        className="mb-3 booking"
+        style={{backgroundColor:'#ccab9793'}}
         actions={[
           <IconText icon={StarOutlined} text="156" key="list-vertical-star-o" />,
           <IconText icon={LikeOutlined} text="156" key="list-vertical-like-o" />,
@@ -201,10 +205,10 @@ class  Booking extends Component {
         {item.prirority}
         { this.props.name === 'match' ?
         <div>
-          <button class ="btn btn-primary" data-toggle="modal" data-target="#model" onClick={(event) => this.clickhandler(event,item.id)}>Find Matches</button>
-          <div  class="modal fade" id="model" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
- <div style = {{ width : '60vw'}} class="modal-dialog modal-dialog-centered" role="document">
- <div style = {{ width : '60vw'}} class="modal-content">
+          <button class ="btn bx" data-toggle="modal" data-target="#model" onClick={(event) => this.clickhandler(event,item.id)}>Find Matches</button>
+          <div  class="modal fade show" id="model" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+ <div class="modal-dialog modal-dialog-centered" role="document">
+ <div class="modal-content">
  <div class="modal-header">
  <h5 class="modal-title" id="exampleModalLabel">Available</h5>
  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -225,7 +229,7 @@ class  Booking extends Component {
  </div>
  </div>
         </div>
-        :<Button type="primary"   onClick={(event) => this.clickhandler(event,item.id)}>{this.props.name}</Button>}
+        :<Button  className="bx"   onClick={(event) => this.clickhandler(event,item.id)}>{this.props.name}</Button>}
 
 
       </List.Item>
@@ -241,7 +245,8 @@ class  Booking extends Component {
 const mapStateToprops = state => {
   return {
       username : state.auth.username,
-      messages : state.message.messages
+      messages : state.message.messages,
+      token:    state.auth.token
   }
 }
 
@@ -253,3 +258,4 @@ const mapdispacttoprops  = dispatch => {
 export default withRouter(connect(mapStateToprops,mapdispacttoprops)(Booking))
  
  
+

@@ -70,7 +70,7 @@ export const authLogin = (username,password) =>{
     return dispatch => {
         localStorage.setItem('username',username) ;
         dispatch(authStart()) ;
-        axios.post("http://humraahi-iitg.herokuapp.com/rest-auth/login/",
+        axios.post("http://127.0.0.1:8000/rest-auth/login/",
         {
             username:username, 
             password : password
@@ -101,7 +101,7 @@ export const authSignUp = (username,email,pass1,pass2) =>{
     return dispatch => {
         localStorage.setItem('username',username) ;
         dispatch(authStart()) ;
-        axios.post("http://humraahi-iitg.herokuapp.com/rest-auth/registration/",
+        axios.post("http://127.0.0.1:8000/rest-auth/registration/",
         {
             username:username, 
             email:email,
@@ -159,7 +159,7 @@ export const socialLogin = (response,provider,redirect) => {
     return dispatch => {
         dispatch(authStart()) ;
     
-      axios.post(`http://localhost:8000/api/login/social/token_user/${provider}`,{
+      axios.post(`http://localhost:8000/api/login/social/token_user/${provider}/`,{
         "method" : "POST",
         "mode" : "cors" ,
         "code" :response.code,
