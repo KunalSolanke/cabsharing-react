@@ -13,17 +13,16 @@ Humraahi is a Cab sharing Website for IIT-G Campus.
 # Todo 
    
 
-   I CAN MAKE MOST OF THIS AFTER EXAMS OR DURING IF NEEDED .
-
+   I CAN MAKE MOST OF THIS AFTER EXAMS OR DURING IF NEEDED 
    There is a lot to do in this project.I was sidetracked by another and lockdown
 
 
 
 
-   1.There is one  issue currently only two people share the ride.
+   1.There is one major issue currently only two people share the ride.
 
    
-        -I have added the code in comments to change it to multiple users but have not tested.
+        -I have added the code in comments to change it to multiple users but have not tested
 
         these changes are in :
             1.Booking model                              user/models
@@ -34,7 +33,7 @@ Humraahi is a Cab sharing Website for IIT-G Campus.
 
 
 
-            on fontend not much
+            on frontend not much
 
 
 
@@ -52,7 +51,7 @@ Humraahi is a Cab sharing Website for IIT-G Campus.
 
 
 
-    3.Search people :
+    3.Search people:
          1.search people by names(not done)
 
 
@@ -72,9 +71,10 @@ Humraahi is a Cab sharing Website for IIT-G Campus.
 
 
    As mentioned in videos I have some issues 
+   
 
    1.Login redirect async 
-
+   
    2.Chat loading shows weird sys gen text at first
-
+   
    3.some ui issues
