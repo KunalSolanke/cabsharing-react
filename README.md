@@ -1,6 +1,8 @@
 # Cabsharing
 
 Humraahi - Makes travelling fun
+
+
 Humraahi is a Cab sharing Website for IIT-G Campus
 
 
@@ -18,7 +20,7 @@ Humraahi is a Cab sharing Website for IIT-G Campus
 
 
 
-   1.There is one major issue currently only two peopele share the ride.
+   1.There is one major issue currently only two people share the ride.
 
    
         -I have added the code in comments to change it to multiple users but have not tested
@@ -32,7 +34,7 @@ Humraahi is a Cab sharing Website for IIT-G Campus
 
 
 
-            on fontend not much
+            on frontend not much
 
 
 
@@ -70,7 +72,10 @@ Humraahi is a Cab sharing Website for IIT-G Campus
 
 
    As mentioned in videos I have some issues 
+   
 
    1.Login redirect async 
+   
    2.Chat loading shows weird sys gen text at first
+   
    3.some ui issues
