@@ -18,7 +18,14 @@ Humraahi is a Cab sharing Website for IIT-G Campus.
 
 
 
-
+   
+   
+   **Done
+   
+   needs testing
+   for data duplication and etc
+   
+   
    1.There is one major issue currently only two people share the ride.
 
    
@@ -39,6 +46,10 @@ Humraahi is a Cab sharing Website for IIT-G Campus.
 
 
 
+
+
+
+**In process
 
     2.Profile :
          1.Update profile(not done)
