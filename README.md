@@ -22,18 +22,18 @@ Humraahi is a Cab sharing Website for IIT-G Campus.
    1.There is one major issue currently only two people share the ride.
 
    
-        -I have added the code in comments to change it to multiple users but have not tested
+        -I have added the code in respective to change it to multiple users but needs to be  tested
 
         these changes are in :
-            1.Booking model                              user/models
-            2.Matchlist view                             users/userapi/views
-            3.Notifications model and consumer            Notifications/models     and Notifications/consumers
-            4.Booked_ride model                                  user/models               
+          [*]  1.Booking model                              user/models
+          [*] 2.Matchlist view                             users/userapi/views
+          [*] 3.Notifications model and consumer            Notifications/models     and Notifications/consumers
+          [*]4.Booked_ride model                                  user/models               
 
 
 
 
-            on frontend not much
+          Needs frontend improvement in ui
 
 
 

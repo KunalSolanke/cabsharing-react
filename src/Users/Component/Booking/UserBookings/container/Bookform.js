@@ -17,11 +17,11 @@ export class Bookform extends Component {
             <AbsoluteWrapper >
             <UserLayout>
                 <div className="row justify-content-center align-items-center p-3 mb-3">
-                        <div className="col-lg-6 col-sm-10 col-xs-12">
+                        <div className="col-lg-6 col-sm-10 col-xs-12 p-2">
                             <Taxisvg />
                       
                         </div>
-                        <div className="col-lg-6 col-sm-10 col-xs-12 p-3">
+                        <div className="col-lg-6 col-sm-10 col-xs-12 ">
                             <div className="row justify-content-center align-items-center">
                             <CustomForm > </CustomForm>
                             </div>

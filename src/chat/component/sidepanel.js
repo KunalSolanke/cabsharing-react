@@ -67,16 +67,12 @@ export class Sidepanel extends Component {
 	}
     render() {
 		const activechats= this.props.chats.map(chat =>{
-			var c=new String();
+			var c=[];
 		
-			chat.participants.forEach(p=>{
-				console.log(typeof(p))
-			
-				if(p!==this.props.username){
-					
-					 c=p ;
-				}
-			})
+			c=chat.participants.map(p=>{if(p!==this.props.username){
+				return p
+			}})
+		
 			 return (
 			<Contact id = {chat.id}
 			author={c}/>

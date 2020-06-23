@@ -7,7 +7,7 @@ from django.conf import settings
 from .views import get_last_10_messages,get_user_contact,get_curent_chat
 # from user.models import Message
 
-
+from Humrahi.models import User
 #User=settings.AUTH_USER_MODEL
 
 class ChatConsumer(WebsocketConsumer):
@@ -25,8 +25,28 @@ class ChatConsumer(WebsocketConsumer):
       
     
 
+    def typing(self,data) :
+        person = User.objects.get(username=data['username'])
 
+        context ={
+            'command':'typing',
+            'type':data['type'],
+            'message':{
+                'name':person.username
+            }
+        }
+        self.send_chat_message(context)
+    
 
+    def online(self,data) :
+        person= User.objects.get(username=data['username']) 
+        context ={
+            'command':'online',
+            'message':{
+                'name':person.username
+            }
+        }
+        self.send_chat_message(context)
 
 
 
@@ -69,8 +89,10 @@ class ChatConsumer(WebsocketConsumer):
 
     commands ={
             'fetch_messages': fetch_messages,
-            'new_message'  : new_messages
-    }
+            'new_message'  : new_messages,
+            'online':online,
+            'typing':typing
+         }
 
     def connect(self):
         self.room_name = self.scope['url_route']['kwargs']['room_name']

@@ -31,7 +31,7 @@ export class Chat extends Component {
 
         super(props)
         this.initializeCHat()
-        WebscoketServiceInstance.addCallbacks(this.props.setmessage.bind(this),this.props.addmessage.bind(this))
+        WebscoketServiceInstance.addCallbacks(this.props.setmessage.bind(this),this.props.addmessage.bind(this),this.props.online.bind(this),this.props.typing.bind(this))
     
        
        
@@ -90,16 +90,18 @@ export class Chat extends Component {
             
          }
           UNSAFE_componentWillUpdate(newProps){
+              console.log(newProps.typistlog)
               if(newProps !== this.props){    
-               
               
               if(newProps.match.params.chatId){
                   if(newProps.match.params.chatId !== this.props.match.params.chatId){
+                      
                 WebscoketServiceInstance.disconnect()
                 WebscoketServiceInstance.connect(newProps.match.params.chatId)
                 this.waitforSocketConnection(() => {
                     
                     WebscoketServiceInstance.fetchMessages(newProps.username,newProps.match.params.chatId)
+                    WebscoketServiceInstance.online(this.props.username)
                 })}
             }
               
@@ -123,6 +125,7 @@ export class Chat extends Component {
         this.setState({
             message: ''
         })
+        WebscoketServiceInstance.typing(this.props.username,'stop')
 
        
 
@@ -134,6 +137,11 @@ export class Chat extends Component {
             message : event.target.value
         })
        
+        if(this.state.message!== ''){
+        WebscoketServiceInstance.typing(this.props.username,'start') ;
+        }else{
+            WebscoketServiceInstance.typing(this.props.username,'stop')
+        }
         
     }
     
@@ -155,7 +163,7 @@ export class Chat extends Component {
 								</div>
 								<div className="user_info">
 									<span>Chat</span>
-									<p>1767 Messages</p>
+								
 								</div>
 								<div className="video_cam">
 									<span><i className="fas fa-video"></i></span>
@@ -176,6 +184,17 @@ export class Chat extends Component {
                             {this.props.messages && this.renderMessages(this.props.messages)}
 							
 						</div>
+                        <div className="d-flex flex-row-reverse typing">
+                            
+                            {
+                            this.props.typistlog.map(t =>{
+                                return t.name!==this.props.username?(
+                                    <div className="py-2 type bx-2 border-4">
+                                        {t.name} is typing.....
+                                        </div>
+                                ):<></> 
+                            })}
+                        </div>
 						<div className="cardx-footer card-footer">
                             <form onSubmit ={this.submithandler} >
 							<div className="input-group">
@@ -204,7 +223,9 @@ export class Chat extends Component {
 const mapStateToprops = state => {
     return {
         username : state.auth.username,
-        messages : state.message.messages
+        messages : state.message.messages,
+        typistlog:state.message.typeusernames,
+        online:state.message.onlineusernames
     }
 }
 
@@ -212,7 +233,9 @@ const mapStateToprops = state => {
 const mapDispatchToprops = dispatch => {
     return {
         addmessage : (message) => dispatch(msgactions.add_message(message)),
-        setmessage : (messages) => dispatch(msgactions.set_messages(messages))
+        setmessage : (messages) => dispatch(msgactions.set_messages(messages)),
+        online:(username,type) => dispatch(msgactions.online(username,type)),
+        typing:(username,type) => dispatch(msgactions.typing(username,type)),
     }
 }
 

@@ -59,7 +59,7 @@ class Register extends Component {
 
 
     console.log(username,email, password,cnf_pass)
-    if(this.props.error === null) {
+    if(this.props.error === null || !this.props.loading) {
       this.props.history.push("/users") ;
     }
   }
@@ -113,11 +113,11 @@ class Register extends Component {
            </div>
            <div className="form-group">
              <label >Password</label>
-             <input htmltype="password" name="password" id="" className="form-control"  />
+             <input type="password" name="password" id="" className="form-control"  />
            </div>
            <div className="form-group">
              <label >Confirm-Password</label>
-             <input htmltype="password" name="cnf_pass" id="" className="form-control" />
+             <input type="password" name="cnf_pass" id="" className="form-control" />
            </div>
           
            <button htmltype="submit" className="btn btn-success b3">Submit</button><br/>

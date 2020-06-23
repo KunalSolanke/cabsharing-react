@@ -12,7 +12,8 @@ class WebscoketService {
     }
 
 
-    callback = {}
+    callback = {
+    }
 
 
     constructor(){
@@ -61,7 +62,7 @@ class WebscoketService {
     socketNewMessage(data) {
         const parsedata= JSON.parse(data) ;
         if(parsedata.message){
-        // console.log(parsedata.message)
+        console.log(parsedata.message)
       
         const command = parsedata.message.command;
         // console.log("this is" ,command)
@@ -81,6 +82,12 @@ class WebscoketService {
         if (command === 'new_message'){
             console.log(parsedata.message['message'])
             this.callback[command](parsedata.message['message'])
+        }
+        if(command==='online'){
+            this.callback[command](parsedata.message['message'])
+        }
+        if(command==='typing'){
+            this.callback[command](parsedata.message['message'],parsedata.message.type)
         }}else{
             
         const command = parsedata.command;
@@ -101,8 +108,16 @@ class WebscoketService {
             this.callback[command](parsedata.message['message'])
 
         }
+        if(command==='online'){
+            this.callback[command](parsedata.message['message'])
+        }
+        if(command==='typing'){
+            this.callback[command](parsedata.message['message'],parsedata.message.type)
+        }
     }
     }
+
+
 
         fetchMessages(username,id){
             this.sendMessage({command: 'fetch_messages',username:username,chatId:id})
@@ -111,10 +126,18 @@ class WebscoketService {
         newChatMessage(message){
             this.sendMessage({command: 'new_message',from:message.from,message: message.content,chatId:message.id})
         }
-
-        addCallbacks(messagesCallback,newMessagecallback){
+        
+        online(username,type){
+            this.sendMessage({command:'online',username:username})
+        }
+        typing(username,type,id){
+            this.sendMessage({command:'typing',username:username,type:type,id})
+        }
+        addCallbacks(messagesCallback,newMessagecallback,onlinecallback,typingcallback,type){
             this.callback['messages'] = messagesCallback ;
             this.callback['new_message'] = newMessagecallback ;
+            this.callback['online']=onlinecallback ;
+            this.callback['typing']=typingcallback ;
         }
 
         disconnect(){

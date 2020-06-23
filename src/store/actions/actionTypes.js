@@ -9,6 +9,8 @@ export const AUTH_LOGOUT = 'AUTH_LOGOUT' ;
 
 export const ADD_MESSAGE = 'ADD_MESSAGE' ;
 export const SET_MESSAGES = 'SET_MESSAGE' ;
+export const ONLINE ='ONLINE'
+export const TYPING='TYPING'
 
 
 

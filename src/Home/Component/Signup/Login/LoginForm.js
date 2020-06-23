@@ -48,7 +48,7 @@ class LoginForm extends React.Component {
     const username=event.target.elements[0].value ;
     const password= event.target.elements[1].value ;
     this.props.onAuth(username,password) ;
-    if(this.props.error === null && !this.props.loading) {
+    if(this.props.error === null || !this.props.loading) {
       
       this.props.history.push("/users") ;
       console.log('hi')
@@ -70,7 +70,7 @@ class LoginForm extends React.Component {
     </div>
    
     <div className="form-group">
-      <label >Email</label>
+      <label >Password</label>
       <input type="password" name="password" id="" className="form-control"  />
     </div>
     

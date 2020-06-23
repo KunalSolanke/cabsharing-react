@@ -1,5 +1,5 @@
 from django.urls import path,re_path
-from user.userapi.views import BookingsviewSets,UserBookings,MatchesListApi,ProfileView,PlacesListView
+from user.userapi.views import BookingsviewSets,UserBookings,MatchesListApi,ProfileView,PlacesListView,GroupMatchesList,Booked_ridesListView
 from rest_framework.routers import DefaultRouter
 
 
@@ -16,7 +16,9 @@ urlpatterns = router.urls
 
 
 urlpatterns.append(re_path("^matches/(?P<pk>.+)/",MatchesListApi.as_view(),name='matches'))
+urlpatterns.append(re_path("^groupmatches/(?P<pk>.+)/",GroupMatchesList.as_view(),name='groupmatches'))
 urlpatterns.append(re_path("^places/",PlacesListView.as_view(),name='places'))
+urlpatterns.append(re_path("^booked/",Booked_ridesListView.as_view(),name='booked'))
 
 
 # router.register(r'matches',MatchesListApi, basename='matches')

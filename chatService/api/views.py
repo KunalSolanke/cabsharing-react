@@ -25,7 +25,7 @@ class ChatView(viewsets.ModelViewSet) :
     def get_queryset(self) :
         username = self.kwargs['username']
         # username = self.request.query_params.get('username',None)
-       
+        print('query')
         contact = get_user_contact(username)
         queryset= contact.chats.all() 
        

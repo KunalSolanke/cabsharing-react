@@ -17,10 +17,13 @@ from user.models import Booked_rides,Bookings
 class NoteConsumer(WebsocketConsumer) :
 
     def fetch_notifications(self,data):
-      
-        notifications = Notification.objects.filter(To__username = data['username']
-        
-         ).order_by('-publish_time')[:20]
+        user = User.objects.filter(username=data['username'])
+        notifications = Notification.objects.filter(To__in = user
+        ).order_by('-publish_time')[:20]
+
+        print(data['username'])
+        print(notifications)
+
       
         context ={
             'command': 'notifications',
@@ -38,12 +41,6 @@ class NoteConsumer(WebsocketConsumer) :
 
          #Todo this is for multiple users in the ride 
 
-            # if Booked_rides.objects.get(pk=data['bookfromid']).exits() :
-            #     ride=Booked_rides.objects.get(pk=data['bookfromid'])
-            #     ride.bookings.add(bookings1)
-            #     if(len(ride.bookings))==4 :
-            #         ride.is_complete=True ;
-            #     ride.save()
 
             # else :
             #     ride=Booked_rides.objects.create(is_complete=False)
@@ -56,26 +53,65 @@ class NoteConsumer(WebsocketConsumer) :
 
 
         author_user = User.objects.get(username = data['from'])
-        to_user = User.objects.get(username=data['to'])
-        notification = Notification.objects.create(From=author_user,To=to_user
+        notification = Notification.objects.create(From=author_user
         ,notification =data['notification'],notification_type = data['type'])
 
 
         if data['type'] == 'confirm':
+            print(data)
+            if Booked_rides.objects.filter(pk=data['booktoid']).exists() :
+                 try:
+                    ride=Booked_rides.objects.get(pk=data['booktoid'])
+                    to=ride.users 
+                    u=User.objects.get(username=data['to'])
+                    ride.users.add(u)
+                    book=Bookings.objects.get(pk=data['bookfromid'])
+                    ride.bookings.add(book)
+                    notification.To.add(to)
+                    notification.save()
+                    ride.total+=1
+                    if ride.total==4 :
+                       ride.is_complete=True ;
+                    ride.save()
+                 except:
+                     return 
+            else :
+                to_user = User.objects.get(username=data['to'])
+                bookings1= Bookings.objects.get(pk =  data['bookfromid'])
+                bookings2= Bookings.objects.get(pk =  data['booktoid'])
+                ride =Booked_rides.objects.create(is_complete=False)
+                ride.users.add(to_user)
+                ride.users.add(author_user)
+                ride.bookings.add(bookings1)
+                ride.bookings.add(bookings2)
+                ride.total=2 
+                if ride.total==4:
+                    ride.is_complete=True
 
-            bookings1= Bookings.objects.get(pk =  data['bookfromid'])
-            bookings2= Bookings.objects.get(pk =  data['booktoid'])
-            ride =Booked_rides.objects.create(is_matched=True,bookings1= bookings1,bookings2= bookings2)
-            ride.user1.add(author_user)
-            ride.user2.add(to_user)
-            ride.is_matched = True
-            ride.save()
-            bookfrom = Bookings.objects.get(pk = data['bookfromid'])
-            bookfrom.is_booked= True
-            bookfrom.save()
-            bookto= Bookings.objects.get(pk = data['booktoid'])
-            bookto.is_booked= True
-            bookto.save() 
+                ride.save()
+                bookfrom = Bookings.objects.get(pk = data['bookfromid'])
+                bookfrom.is_booked= True
+                bookfrom.save()
+                bookto= Bookings.objects.get(pk = data['booktoid'])
+                bookto.is_booked= True
+                bookto.save() 
+                notification.To.set(ride.users.all().exclude(username=data['from']))
+                notification.save()
+        else :
+                if Booked_rides.objects.filter(pk=data['booktoid']).exists():
+                    ride=Booked_rides.objects.get(pk=data['booktoid'])
+                    to=ride.users 
+                    for u in ride.users.all() :
+                        notification.To.add(u)
+                    notification.save()
+
+                else :
+                    print(data['to'])
+                    to_user = User.objects.get(username=data['to'])
+            
+                    notification.To.add(to_user)
+                    notification.save()
+
             
 
 
@@ -104,9 +140,15 @@ class NoteConsumer(WebsocketConsumer) :
     
 
     def message_to_json(self,notification):
+        sendingto=[]
+        print(notification.To.all())
+        for user in notification.To.all():
+            
+            sendingto.append(user.username)
+        print(sendingto)
         return {
             'id':notification.id,
-            'to':notification.To.username,
+            'to':sendingto,
             'author':notification.From.username ,
             'content':notification.notification,
             'timestamp':str(notification.timestamp),

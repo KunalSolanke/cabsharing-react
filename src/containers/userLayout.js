@@ -114,7 +114,7 @@ class UserLayout extends React.Component {
    
     
     if(newProps.messages.length> this.props.messages.length) {
-      if(newProps.messages[newProps.messages.length-1].to === newProps.username){
+      if(newProps.messages[newProps.messages.length-1].to.includes( newProps.username)){
         const key = `open${Date.now()}`;
         // const btn = (
         //   <Button type="primary" size="small" onClick={() =>this.notification_confirm(message.from,key)}>
@@ -195,9 +195,9 @@ class UserLayout extends React.Component {
                        
                         <div className="dropdown-menu" aria-labelledby="navbarDropdown">
                            <NavLink exact to ="/users/Book" activeClassName="bg-dark text-white" className="dropdown-item" href="/#" >Book Your Ride</NavLink><br />
-                           <NavLink exact to ="/users/pastbookings" activeClassName="bg-dark text-white" className="dropdown-item" href="/#">Previous bookings</NavLink><br />
+                           <NavLink exact to ="/users/pastbookings" activeClassName="bg-dark text-white" className="dropdown-item" href="/#">Booked_rides</NavLink><br />
                            
-                           <NavLink exact to ="/users/bookinglist" activeClassName="bg-dark text-white" className="dropdown-item" href="/#">Current Bookings</NavLink>
+                           <NavLink exact to ="/users/bookinglist" activeClassName="bg-dark text-white" className="dropdown-item" href="/#">Pending Bookings</NavLink>
                        </div>
                     </li>
                     <li className="nav-item dropdown">

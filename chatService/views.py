@@ -18,7 +18,8 @@ def get_curent_chat(chatId):
 
 def get_user_contact(username) : 
     user = get_object_or_404(User,username=username)
-    return get_object_or_404(Contact,user=user)
+    contact,_=Contact.objects.get_or_create(user=user)
+    return contact
 
 
 def get_last_10_messages(chatId):

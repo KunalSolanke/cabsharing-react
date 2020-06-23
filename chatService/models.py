@@ -1,5 +1,9 @@
 from django.db import models
 from django.conf import settings
+from django.conf import settings
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+
 
 
 User = settings.AUTH_USER_MODEL
@@ -28,7 +32,23 @@ class Contact(models.Model) :
     def __str__(self) :
     
         return self.user.username
-    
+
+
+  
+# @receiver(post_save,sender=settings.AUTH_USER_MODEL) 
+# def create_contact(sender,instance,created,**kwargs) :
+#    if created :
+#        Contact.objects.create(user=instance)
+
+# @receiver(post_save,sender=settings.AUTH_USER_MODEL)
+# def update_contact(sender,instance,created,**kwargs) :
+#     try:
+#        instance.contact.save()
+#     except:
+#         Contact.objects.create(user=instance)
+
+
+
 
 class Messages(models.Model) :
     contact    = models.ForeignKey(Contact,related_name="messages",on_delete=models.CASCADE)

@@ -6,7 +6,9 @@ import { UpdatedObj} from '../utility'
 
 const intialState = {
     messages: [] ,
-    chats : []
+    chats : [],
+    typeusernames:[],
+    onlineusernames:[]
 }
 
 export const addmessage= (state,action) =>{
@@ -28,12 +30,50 @@ export const getchatsuccess= (state,action) =>{
     })
 }
 
+export const online =(state,action)=>{
+    
+    return UpdatedObj(state,{
+        onlineusernames:[...state.onlineusernames,action.onlineusernames]    })
+}
+
+export const typing =(state,action)=>{
+   console.log(action.on)
+   if(action.on==='stop'){
+       console.log('here')
+       console.log(state.typeusernames)
+       let usernames = []
+       state.typeusernames.forEach(u=>{
+           if(u.name !== action.typeusernames.name){
+               usernames.push(u)
+           }
+       })
+       return UpdatedObj(state,{
+           typeusernames:usernames
+       })
+   }
+   let b=false 
+   state.typeusernames.forEach(u=>{
+       if(u.name===action.typeusernames.name){
+         b=true 
+       }
+   })
+    if(b){
+        return UpdatedObj(state,{
+            typeusernames:[...state.typeusernames]
+        })
+    }
+    return UpdatedObj(state,{
+        typeusernames:[...state.typeusernames,action.typeusernames]
+    })
+}
 
 const reducer = (state=intialState,action) => {
     switch(action.type){
         case actionTypes.GET_CHAT_SUCCESS : return getchatsuccess(state,action)
         case actionTypes.ADD_MESSAGE : return addmessage(state,action)
         case actionTypes.SET_MESSAGES : return setmessages(state,action)
+        case actionTypes.TYPING: return typing(state,action)
+
         default: return state
     }
 }

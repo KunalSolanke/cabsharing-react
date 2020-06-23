@@ -59,12 +59,12 @@ class Bookings(models.Model) :
     no_friends=models.IntegerField(('friends'),null=True,blank=True)
     allow_with=models.IntegerField(('How many!!'),null=True,blank=True)
 
-class Booked_rides(models.Model) :
-    user1=models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='user1')
-    user2=models.ManyToManyField(settings.AUTH_USER_MODEL,related_name='user2')
-    is_matched=models.BooleanField(("match_status"),default=False)
-    bookings1 = models.OneToOneField(Bookings,related_name='book1',on_delete=models.CASCADE,null=True)
-    bookings2 = models.OneToOneField(Bookings,related_name='book2',on_delete=models.CASCADE,null=True)
+# class Booked_rides(models.Model) :
+#     user1=models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='user1')
+#     user2=models.ManyToManyField(settings.AUTH_USER_MODEL,related_name='user2')
+#     is_matched=models.BooleanField(("match_status"),default=False)
+#     bookings1 = models.OneToOneField(Bookings,related_name='book1',on_delete=models.CASCADE,null=True)
+#     bookings2 = models.OneToOneField(Bookings,related_name='book2',on_delete=models.CASCADE,null=True)
 
 
 
@@ -121,8 +121,8 @@ class Booked_rides(models.Model) :
 #TODO uncomment code below ,delete migrations and remigrate
 #for 3-4 users 
 
-# class Booked_rides(models.Model) :
-#     users=models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='users')
-#     is_complete=models.BooleanField(("match_status"),default=False)
-#     bookings = models.ManyToManyield(Bookings,related_name='book1',on_delete=models.CASCADE,null=True)
-#     decided_time=models.TimeField(default='')
+class Booked_rides(models.Model) :
+    users=models.ManyToManyField(settings.AUTH_USER_MODEL,related_name='users')
+    is_complete=models.BooleanField(("match_status"),default=False)
+    bookings = models.ManyToManyField(Bookings,related_name='bookings')
+    total = models.IntegerField(default=0)

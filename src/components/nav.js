@@ -4,24 +4,24 @@ import {NavLink} from 'react-router-dom' ;
 export class Nav extends Component {
     render() {
         return (
-            <div className="container-fluid mb-2 main-nav">
+            <div className="container-fluid  main-nav">
             <nav className="navbar navbar-expand-lg navbar-dark bg-dark text-white">
-                <a className="navbar-brand text-white" href="/"><h3><i className="fa fa-car fa-white" aria-hidden="true"></i>Humraahi</h3></a>
+                <a className="navbar-brand text-white text-center mx-3" href="/"><h3><i className="fa fa-car fa-white" aria-hidden="true"></i>Humraahi</h3></a>
                 <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon  text-white"></span>
                 </button>
                 <div className="collapse navbar-collapse text-white" id="navbarSupportedContent">
                     <ul className="navbar-nav mr-auto text-white">
-                       <li className="nav-item  text-white">
-                           <NavLink exact to="/" className="text-white" activeClassName="nav-link text-white">Home</NavLink>
+                       <li className="nav-item  text-center text-white mx-2">
+                           <NavLink exact to="/" className="text-white text-center" activeClassName=" text-white">Home</NavLink>
                        </li>
-                       <li className="nav-item">
+                       <li className="nav-item mx-2 text-center">
                            {/* <a className="nav-link text-white" href="#">About Us</a> */}
-                           <NavLink exact to ="/about" className="text-white" activeClassName="nav-link text-white"  >About</NavLink><br />
+                           <NavLink exact to ="/about" className="text-white text-center py-auto" activeClassName=" text-white">About</NavLink><br />
 
                        </li>
-                       <li className="nav-item dropdown">
-                           <a className="nav-link dropdown-toggle text-white" href="/#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                       <li className="nav-item dropdown mx-2 text-center">
+                           <a className="dropdown-toggle text-white" href="/#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Join Us
                             </a>
                            

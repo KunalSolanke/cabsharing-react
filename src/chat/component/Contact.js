@@ -13,6 +13,7 @@ export class Contact extends Component {
     }
     
     render() {
+		this.props.author.pop()
         return (
             <li className="active">
 				<NavLink to ={`/users/chat/${this.props.id}`} >
@@ -22,8 +23,12 @@ export class Contact extends Component {
 									<span className="online_icon"></span>
 								</div>
 								<div className="user_info">
-									<span>{this.props.author}</span>
-									<p>{this.props.author} is online</p>
+									{this.props.author.map((a,i)=>{
+										if(i!==this.props.author.length-1){
+											return (<span>{a}&</span>)
+										}else{return (<span>{a}</span>)}
+									})}
+									 
 								</div>
 							</div>
 							

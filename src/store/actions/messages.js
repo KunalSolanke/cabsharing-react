@@ -17,6 +17,19 @@ export const set_messages =(messages) => {
     }
 }
 
+export const online =(username)=>{
+    return {type:actiontypes.ONLINE,
+    onlineusernames:username
+    }
+}
+
+export const typing =(username,type)=>{
+    console.log(type)
+    return {type:actiontypes.TYPING,
+      on:type,
+    typeusernames:username,
+    }
+}
 
 export const getUserchatSuccess = (chats) => {
     return {
