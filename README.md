@@ -25,11 +25,11 @@ Humraahi is a Cab sharing Website for IIT-G Campus.
    needs testing
    for data duplication and etc
    
-   Point 1 is completed
-   1.There is one major issue currently only two people share the ride.
+   
+   1.Code for multiple users testing.
 
    
-        -I have added the code in respective to change it to multiple users but needs to be  tested
+        -I have added the code for multiple users but needs to be  tested
 
         these changes are in :
           [*]  1.Booking model                              user/models
