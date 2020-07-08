@@ -5,36 +5,42 @@ import WebscoketServiceInstance from './WebsocketService';
 import {connect} from 'react-redux' ;
 import {withRouter} from 'react-router-dom'
 import * as msgactions from '../store/actions/messages'
+import {chats as c} from './WebsocketService'
 
 
 
 
 export class Chat extends Component {
   state = {
-          message : ''   
+          message : '',
+          currentchat:[]
     }
 
+    
 
+
+    // INTIALIZE THE CHAT 
     initializeCHat(){
         if(this.props.match.params.chatId){
            
-        WebscoketServiceInstance.connect(this.props.match.params.chatId)
+       WebscoketServiceInstance.connect(this.props.match.params.chatId)
         this.waitforSocketConnection(() => {
-            // WebscoketServiceInstance.addCallbacks(this.setMessages.bind(this),
+            //WebscoketServiceInstance.addCallbacks(this.setMessages.bind(this),
             // this.addMessage.bind(this)) ;
             WebscoketServiceInstance.fetchMessages(this.props.username,this.props.match.params.chatId)
         })
-    }
+      }
 
     }
+
+
+
+
     constructor(props) {
 
         super(props)
         this.initializeCHat()
-        WebscoketServiceInstance.addCallbacks(this.props.setmessage.bind(this),this.props.addmessage.bind(this),this.props.online.bind(this),this.props.typing.bind(this))
-    
-       
-       
+         WebscoketServiceInstance.addCallbacks(this.props.setmessage.bind(this),this.props.addmessage.bind(this),this.props.online.bind(this),this.props.typing.bind(this))
        
     }
 
@@ -42,10 +48,17 @@ export class Chat extends Component {
     renderMessages = (messages) =>{
         const currentUser =this.props.username ;
         return messages.map((message)=>{
+
+
+            if(message.chatId===this.props.match.params.chatId){
             if(message.author===currentUser){
                 return  (
             <div className= "d-flex justify-content-end mb-4">
-                <div class="msg_cotainer_send" ><span>{message['content']}</span></div>
+                
+                <div class="msg_cotainer_send px-1"  ><p style={{marginBottom:'0rem',fontSize:'10px'}}>You</p>
+                    <div><span>{message['content']}</span></div>
+                    </div>
+                
                 <div className="img_cont_msg"><img className="rounded-circle user_img_msg" alt =""src="https://static.turbosquid.com/Preview/001292/481/WV/_D.jpg" /></div>
             </div>)
             }
@@ -53,30 +66,40 @@ export class Chat extends Component {
                 return (
                 <div className="d-flex justify-content-start mb-4">
                     <div className="img_cont_msg"><img className="rounded-circle user_img_msg" alt=""src="https://static.turbosquid.com/Preview/001292/481/WV/_D.jpg" /></div>
-                    <div class="msg_cotainer"><span>{message['content']}</span></div>
+                    
+                    <div class="msg_cotainer px-1">
+                    <p style={{marginBottom:'0rem',fontSize:'10px'}}>{message.author}</p>
+                        <span>{message['content']}</span></div>
+                    
                     
                 </div>
                 )
 
-          }}
+          }}}
           )
     
     } 
+    
+
 
 
 
     waitforSocketConnection(callback) {
         const component = this
         // const socket = this.socketRef ;
-        //  const recursion = this.WaitForSocketConnection ;
-         
+        //  const recursion = this.WaitForSocketConnection ;   
          setTimeout(
              function(){
-                if (WebscoketServiceInstance.state() === 1 ) {
+                if (WebscoketServiceInstance.state(component.props.match.params.chatId) === 1 ) {
                     console.log("connetion is secure") ;
                         callback() ;
                 
                     return ;
+                }else if(c[`${component.props.match.params.chatId}`]!==undefined){
+                    if(c[`${component.props.match.params.chatId}`].readyState===1){
+                        return
+
+                    }
                 }else {
                     console.log("waiting for connection ...")
                     component.waitforSocketConnection(callback)
@@ -88,32 +111,19 @@ export class Chat extends Component {
          ,100) ;}
          componentDidMount(){
             
-         }
-          UNSAFE_componentWillUpdate(newProps){
-              console.log(newProps.typistlog)
-              if(newProps !== this.props){    
-              
-              if(newProps.match.params.chatId){
-                  if(newProps.match.params.chatId !== this.props.match.params.chatId){
-                      
-                WebscoketServiceInstance.disconnect()
-                WebscoketServiceInstance.connect(newProps.match.params.chatId)
-                this.waitforSocketConnection(() => {
-                    
-                    WebscoketServiceInstance.fetchMessages(newProps.username,newProps.match.params.chatId)
-                    WebscoketServiceInstance.online(this.props.username)
-                })}
-            }
-              
-            
-              }
-              
-          }
+    }
+    
 
+
+
+
+
+
+
+
+
+    //MESSAGE SUBMIT HANDLER
     submithandler = (event) => {
-       
-      
-        
         event.preventDefault() ;
        
         const MessageObj = {
@@ -125,35 +135,46 @@ export class Chat extends Component {
         this.setState({
             message: ''
         })
-        WebscoketServiceInstance.typing(this.props.username,'stop')
+        WebscoketServiceInstance.typing(this.props.username,'stop',this.props.match.params.chatId)
 
        
 
     }
 
+    componentDidUpdate(){
+        setTimeout(()=>{
+          if(this.props.username==='' || this.props.token===null ){
+            this.props.history.push('/login')
+          }
+        },200)
+      }
+    
 
+     // INPUT BOX CHANGE HANDLER -USED TO FIRE TYING EVENT
     changehandler = (event) => {
         this.setState({
             message : event.target.value
         })
        
         if(this.state.message!== ''){
-        WebscoketServiceInstance.typing(this.props.username,'start') ;
+        WebscoketServiceInstance.typing(this.props.username,'start',this.props.match.params.chatId) ;
         }else{
-            WebscoketServiceInstance.typing(this.props.username,'stop')
+            WebscoketServiceInstance.typing(this.props.username,'stop',this.props.match.params.chatId)
         }
         
     }
+
+
     
     render() {
     
         return (
-            <div className="bdy container-fluid h-100">
+            <div className="bdy container-fluid h-100 px-3">
 			<div className="row justify-content-center h-100">
 				<Sidepanel />
                 {
                 this.props.match.params.chatId ? 
-				<div className="col-md-8 col-xl-6 chat">
+				<div className="col-md-8 col-xl-6 col-sm-10 col-10 chat">
 					<div className="card cardx">
 						<div className="card-header msg_head ">
 							<div className="d-flex bd-highlight">
@@ -188,7 +209,7 @@ export class Chat extends Component {
                             
                             {
                             this.props.typistlog.map(t =>{
-                                return t.name!==this.props.username?(
+                                return t.name!==this.props.username && this.props.chats.filter(c=>c.id===parseInt(this.props.match.params.chatId))[0].participants.includes(t.name)?(
                                     <div className="py-2 type bx-2 border-4">
                                         {t.name} is typing.....
                                         </div>
@@ -220,12 +241,15 @@ export class Chat extends Component {
     }
 }
 
+
+
 const mapStateToprops = state => {
     return {
         username : state.auth.username,
         messages : state.message.messages,
         typistlog:state.message.typeusernames,
-        online:state.message.onlineusernames
+        online:state.message.onlineusernames,
+        chats:state.message.chats
     }
 }
 
@@ -241,6 +265,30 @@ const mapDispatchToprops = dispatch => {
 
 
 export default withRouter(connect(mapStateToprops,mapDispatchToprops)(Chat))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 // componentDidMount(){
@@ -261,3 +309,35 @@ export default withRouter(connect(mapStateToprops,mapDispatchToprops)(Chat))
     //     })
     //     console.log(this.state.messages)
     // }
+
+
+
+
+
+
+
+
+
+
+      //    UNSAFE_componentWillUpdate(newProps){
+        //  // console.log( this.props.chats.filter(c=>c.id===parseInt(newProps.match.params.chatId)),this.props.chats,newProps.match.params.chatId)
+    
+        //       console.log(newProps.typistlog)
+        //       if(newProps !== this.props){    
+              
+        //       if(newProps.match.params.chatId){
+        //           if(newProps.match.params.chatId !== this.props.match.params.chatId){
+                      
+        //         WebscoketServiceInstance.disconnect()
+        //         WebscoketServiceInstance.connect(newProps.match.params.chatId)
+        //         this.waitforSocketConnection(() => {
+                    
+        //             WebscoketServiceInstance.fetchMessages(newProps.username,newProps.match.params.chatId)
+        //            // WebscoketServiceInstance.online(this.props.username)
+        //         })}
+        //     }
+              
+            
+        //       }
+              
+        //   }

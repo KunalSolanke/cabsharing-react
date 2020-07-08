@@ -37,10 +37,10 @@ export const online =(state,action)=>{
 }
 
 export const typing =(state,action)=>{
-   console.log(action.on)
+   //console.log(action.on)
    if(action.on==='stop'){
-       console.log('here')
-       console.log(state.typeusernames)
+       //console.log('here')
+       //console.log(state.typeusernames)
        let usernames = []
        state.typeusernames.forEach(u=>{
            if(u.name !== action.typeusernames.name){

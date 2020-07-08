@@ -17,7 +17,7 @@ class PlaceList extends React.Component {
       'Content-Type' : 'application/json' ,
       'Authorization' : `Token ${this.props.token}`
     }
-    axios.get("http://127.0.0.1:8000/uapi/places/").then(
+    axios.get("/uapi/places/").then(
       res => {
       this.setState({
         places : res.data
@@ -37,7 +37,7 @@ componentWillUpdate(newProps) {
       'Content-Type' : 'application/json' ,
       'Authorization' : `Token ${newProps.token}`
     }
-    axios.get("http://127.0.0.1:8000/uapi/places/").then(
+    axios.get("/uapi/places/").then(
       res => {
         console.log(res.data)
       this.setState({
@@ -61,12 +61,12 @@ componentWillUpdate(newProps) {
        
             <div className = "col-lg-7 col-sm-12">
                 <div>
-            <h3 classNmae="text-dark" style={{color:"#000"}}>{place.name}</h3>
+            <h3 className="text-dark" style={{color:"#000"}}>{place.name}</h3>
             <p>{place.palce_info}</p>
             </div>
             </div>
             <div  className = "col-lg-5 col-sm-12" >
-              <img classNames="img img-responsive img-rounded" src={place.image} alt=""style={{ height:'18vh',width:'100%',objectFit:'contain',overflow:'hidden'}}></img>
+              <img className="img img-responsive img-rounded" src={place.image} alt=""style={{ height:'18vh',width:'100%',objectFit:'contain',overflow:'hidden'}}></img>
             </div>           
         </div>
 

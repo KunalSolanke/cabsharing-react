@@ -15,12 +15,13 @@ import { useTransition,animated } from 'react-spring';
 import Nav from './components/nav'
 import About from './components/About';
 import Contact from './components/Contact';
+import {Error_404} from './components/error' ;
 
 
 
 const BaseRouter =() => {
     const {location} = useContext(__RouterContext) ;
-    console.log(location) ;
+    //console.log(location) ;
     const transitions = useTransition(location,location=> location.pathname,{
         from:{opacity:0,transform:"translateX(100%)"},
         enter:{opacity:1,transform:"translateX(0%)"},
@@ -29,7 +30,7 @@ const BaseRouter =() => {
        
        
     })
-    console.log(transitions.length) ;
+   // console.log(transitions.length) ;
     
     return(
         <>
@@ -52,9 +53,9 @@ const BaseRouter =() => {
         <Route exact path='/users/chat' component ={Index} />
         <Route exact path='/users/chat/:chatId' component ={Chat} />   
         <Route exact path='/about' component ={About} >
-
         </Route>
         <Route exact path='/contact' component ={Contact} />
+        <Route component={Error_404} />
             
         
          
@@ -63,6 +64,7 @@ const BaseRouter =() => {
            </animated.div>
 
         ))}
+       
         {/* <Switch> 
         <Route exact path='/login'  component ={Login} />
         <Route exact path='/register' component ={Register} />

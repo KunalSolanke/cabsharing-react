@@ -13,6 +13,7 @@ import {connect }  from 'react-redux' ;
 import {withRouter} from 'react-router-dom' ;
 import NotWebscoketServiceInstance from '../../../../Notification/notWebsocket';
 import axios from 'axios'
+import Taxipic from '../../../../assets/Taxipic.jpg'
 
 
 
@@ -31,20 +32,20 @@ class CustomForm extends React.Component {
     //this.handleFormSubmit =this.handleFormSubmit.bind(this) ;
     this.formsub1 =this.formsub1.bind(this)
     this.formsub2=this.formsub2.bind(this)
-    this.handleChange = this.handleChange.bind(this)
-    this.handleChange1 = this.handleChange.bind(this)
-    this.handleChange2 = this.handleChange.bind(this)
+    // this.handleChange = this.handleChange.bind(this)
+    // this.handleChange1 = this.handleChange.bind(this)
+    this.handleChange2 = this.handleChange2.bind(this)
     this.notify =this.notify.bind(this)
      this.onchat=this.onchat.bind(this)
      this.onchat1=this.onchat1.bind(this)
     this.state = {
-      special_req: "None",
+      Type: "None",
       load : false ,
       fetched : false ,
       matchedbookings : [],
       place:'',
       friends:0,
-      allow_with:0,
+     from_place:'',
       matchedgroups:[],
       booking :{},
       profiles:[]
@@ -57,7 +58,7 @@ class CustomForm extends React.Component {
 
   onchat(n){
     
-    console.log("hi",this.props.token)
+    //console.log("hi",this.props.token)
     let combinedusers =[]
 
       combinedusers=n.map(n=>n.username) ;
@@ -65,14 +66,14 @@ class CustomForm extends React.Component {
       
     
 
-    console.log(combinedusers)
+   // console.log(combinedusers)
     
     axios.defaults.headers = {
       'Content-Type' : "application/json",
        'Authorization' : `Token ${this.props.token}`
     }
-    console.log(this.state.combinedusers)
-    axios.post(`http://127.0.0.1:8000/capi/${this.props.username}/chats/`,{
+   // console.log(this.state.combinedusers)
+    axios.post(`/capi/${this.props.username}/chats/`,{
       messages: []   ,
       participants : combinedusers
     }).then(res => {
@@ -87,23 +88,26 @@ class CustomForm extends React.Component {
     })
   };
 
+
+
+
   onchat1(name){
     
-    console.log("hi",this.props.token)
+    //console.log("hi",this.props.token)
     let combinedusers =[name,this.props.username]
 
   
       
     
 
-    console.log(combinedusers)
+    //console.log(combinedusers)
     
     axios.defaults.headers = {
       'Content-Type' : "application/json",
        'Authorization' : `Token ${this.props.token}`
     }
-    console.log(this.state.combinedusers)
-    axios.post(`http://127.0.0.1:8000/capi/${this.props.username}/chats/`,{
+    //console.log(this.state.combinedusers)
+    axios.post(`/capi/${this.props.username}/chats/`,{
       messages: []   ,
       participants : combinedusers
     }).then(res => {
@@ -118,13 +122,18 @@ class CustomForm extends React.Component {
     })
   };
 
-  notify (username,place,id) {
-     console.log('hello')
+
+
+
+
+  notify (username,place,id,type) {
+     //console.log('hello')
     const NotifyObj = {
        command: 'new_notification',
        from : this.props.username,
        to:username ,
        type:'request',
+       typeb:type,
        bookfromid:this.state.booking.id,
        booktoid:id,
       
@@ -142,22 +151,29 @@ class CustomForm extends React.Component {
   
 
   
-  handleChange (event){
-    this.setState({
-      special_req : event.target.value
-    }) ;
-  }
+  // handleChange (event){
+  //   this.setState({
+  //     time: event.target.value
+  //   }) ;
+  // }
+  // handleChange1 (event){
+  //   this.setState({
+  //     date: event.target.value
+  //   }) ;
+  // }
 
-  handleChange1 (event){
-    this.setState({
-      allow_with : event.target.value
-    }) ;
-  }
-
+ 
   handleChange2 (event){
     console.log("changed")
     this.setState({
       friends : event.target.value
+    }) ;
+  }
+
+  handleChange3 (event){
+    console.log("changed")
+    this.setState({
+      Type: event.target.value
     }) ;
   }
   
@@ -190,118 +206,135 @@ class CustomForm extends React.Component {
 
   }
 
-  formsub1=(event)=>{
-    console.log(event.target)
 
-    event.preventDefault()
-    this.setState({
-      place:event.target.elements[0].value,
-      date:event.target.elements[1].value,
-      time:event.target.elements[2].value
-    })
-   
-    var form=document.querySelector('.form1')
-    var formx=document.querySelector('.form2')
-    form.classList.remove('form1-active');
-      form.classList.add('form1-inactive');
-      formx.classList.remove('form2-inactive');
-      formx.classList.add('form2-active');
-      console.log('h1')
-      
+
+
+  formsub1=(event)=>{
+   // console.log(event.target)
+
+      event.preventDefault()
+      this.setState({
+        place:event.target.elements[0].value,
+        from_place:event.target.elements[1].value,
+        Type:event.target.elements[2].value
+      })
+    
+      var form=document.querySelector('.form1')
+      var formx=document.querySelector('.form2')
+      form.classList.remove('form1-active');
+        form.classList.add('form1-inactive');
+        formx.classList.remove('form2-inactive');
+        formx.classList.add('form2-active');
+        console.log('h1')
+        
   }
+
+
+
+
+
+
   async formsub2(event){
-    console.log(this.state.place,this.state.time,this.state.date)
-    console.log(event.target)
+   // console.log(this.state.place,this.state.time,this.state.date)
+   // console.log(event.target)
     event.preventDefault()
     // this.setState({
     //   friends:event.target.elements[0].value,
     //   allow_with:event.target.elements[1].value,
     //   special_req:event.target.elements[2].value
+
     // })
-    axios.defaults.headers = {
-      'Content-Type': 'application/json',
-      'Authorization': `Token ${this.props.token}`
+    this.setState({
+      date:event.target.elements[1].value,
+      time:event.target.elements[0].value
+    })
+                  axios.defaults.headers = {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Token ${this.props.token}`
+                }
+                axios.post(" /uapi/curr/userbookings/",
+                  {
+                    place: this.state.place,
+                    no_friends: this.state.friends ,
+                    date: event.target.elements[1].value,
+                    time:event.target.elements[0].value,
+                    from_place : this.state.from_place,
+                    special_req:this.state.Type,
+                    user : 1,
+                  
+                    
+                    
+                  }).then(res =>{
+                    this.setState({
+                      load : true,
+                      booking:res.data
+                    })
+
+
+                    axios.defaults.headers = {
+                      'Content-Type': 'application/json',
+                      'Authorization': `Token ${this.props.token}`
+                  }
+                  axios.get("/uapi/matches/0/").then(
+                  async( res) => {
+                      // console.log(res.data) 
+                      await this.setState({
+                        matchedbookings : res.data,
+
+                      })
+                    
+                    var k = []
+
+                    const profiles = [...Array(res.data.length)].map(async (_,index)=> {
+                      console.log('hi')
+                    const response = await axios.get(`/uapi/${res.data[index].user}/profile/`)
+                    console.log(response)
+                    k=[...k,response.data[0]]
+                    await this.setState({
+                      profiles : k
+                    })
+                    
+                    
+                    return response.data[0]
+                    })
+                    console.log(profiles)
+                  }
+                  
+                  )
+                  axios.get("/uapi/groupmatches/0/").then(
+                    res => {
+                      // console.log(res.data) 
+                      this.setState({
+                        matchedgroups : res.data,
+                        load : false ,
+                        fetched : true ,
+
+                      })
+                    }
+                  
+                  )
+
+                  
+                  }) ;
+
+   
   }
-   axios.post(" http://127.0.0.1:8000/uapi/curr/userbookings/",
-    {
-      place: this.state.place,
-      no_friends: this.state.friends ,
-      date: this.state.date,
-      time:this.state.time,
-      allow_with : this.state.allow_with,
-      special_req :this.state.special_req,
-      user : 1,
-     
-      
-      
-    }).then(res =>{
-      this.setState({
-        load : true,
-        booking:res.data
-      })
 
 
-      axios.defaults.headers = {
-        'Content-Type': 'application/json',
-        'Authorization': `Token ${this.props.token}`
-    }
-    axios.get("http://127.0.0.1:8000/uapi/matches/0/").then(
-     async( res) => {
-        // console.log(res.data) 
-        await this.setState({
-          matchedbookings : res.data,
 
-        })
-      
-      var k = []
 
-      const profiles = [...Array(res.data.length)].map(async (_,index)=> {
-        console.log('hi')
-       const response = await axios.get(`http://127.0.0.1:8000/uapi/${res.data[index].user}/profile/`)
-       console.log(response)
-       k=[...k,response.data[0]]
-       await this.setState({
-        profiles : k
-      })
-      
-      
-      return response.data[0]
-      })
-      console.log(profiles)
-     }
-     
-    )
-    axios.get("http://127.0.0.1:8000/uapi/groupmatches/0/").then(
-      res => {
-        // console.log(res.data) 
-        this.setState({
-          matchedgroups : res.data,
-          load : false ,
-          fetched : true ,
 
-        })
-      }
-     
-    )
-
-    
-    }) ;
-
-     
-    
-      
-  }
   componentDidMount(){
-    var form=document.querySelector('.form1')
-    var formx=document.querySelector('.form2')
-  
-    form.classList.add('.form1-active') ;
-    formx.style.opacity=0 ;
-    formx.style.pointerEvents= 'none' ;
+        var form=document.querySelector('.form1')
+        var formx=document.querySelector('.form2')
+      
+        form.classList.add('.form1-active') ;
+        formx.style.opacity=0 ;
+        formx.style.pointerEvents= 'none' ;
 
-    axios.defaults.headers = {
-      "Content-Type" : "application/json" ,
-      Authorization : "Token "+this.props.token
+        axios.defaults.headers = {
+          "Content-Type" : "application/json" ,
+          Authorization : "Token "+this.props.token
   }
 
     
@@ -327,17 +360,18 @@ render() {
           />
           </div>
             <div className = "col-lg-8 col-sm-6 col-xs-12 text-center">
-              <h3>
-                {this.state.profiles[index].Name}
-              </h3>
+            
               <p>
+               User:{this.state.profiles[index].Name}<br/>
                 Going to: {match.place}<br/>
-                on : {match.date} <br />
-                friends:{match.allow_with}
+                From :{match.from_place} <br/>
+                on : {match.date} and    Time :{match.time} <br />
+                friends:{match.no_friends}
+                Type:{match.special_req}
               </p>
               
               <button onClick ={()=>this.onchat1(this.state.profiles[index].Name)}class="btn btn-primary" type='submit'>Chat</button><br/><br/>
-              <button  onClick ={() => this.notify(this.state.profiles[index].Name,match.place,match.id)} class="btn btn-primary"type='submit'>Send Request</button><br/>
+              <button  onClick ={() => this.notify(this.state.profiles[index].Name,match.place,match.id,'individual')} class="btn btn-primary"type='submit'>Send Request</button><br/>
               
             </div>
            
@@ -347,18 +381,19 @@ render() {
       )
       }
     })
-  if(this.state.load === true) {
-   return ( 
+
+
   
 
+
+
+
+  if(this.state.load === true) {
+   return ( 
      <div style ={{ height : "100%"}} className = "row justify-content-space-evenly align-items-center" >
 
       <Spin size="large" />
       </div>
-         
-          
-    
-   
    
    ) }
   else if ( this.state.fetched === true){
@@ -390,30 +425,26 @@ render() {
       },
       pageSize: 3,
     }}l̥   
-    dataSource={this.state.matchesgroups}
+    dataSource={this.state.matchedgroups}
     
     renderItem={item => (
       <List.Item
         key={item.place}
         className="mb-3 booking"
-        style={{backgroundColor:'#ccab9793'}}
-        actions={[
-          <IconText icon={StarOutlined} text="156" key="list-vertical-star-o" />,
-          <IconText icon={LikeOutlined} text="156" key="list-vertical-like-o" />,
-          <IconText icon={MessageOutlined} text="2" key="list-vertical-message" />,
-        ]}
+        style={{backgroundColor:'#bff'}}
+       
         extra={
           <img
             width={272}
             alt="logo"
-            src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png"
+            src={Taxipic}
           />
         }
       >
         <List.Item.Meta
           avatar={<Avatar src={item.avatar} />}
-          title={<a href={`/users/booked/${item.id}`}>Trip to {item.place}</a>}
-          description={<p>Desciption:{item.special_req}</p>}
+          title={<a href={`/users/booked/${item.id}`}>Trip to {item.bookings[0].place}</a>}
+          description={<p>Desciption:{item.bookings[0].special_req}</p>}
         />
          <div>
                 <h4>People Onboard:</h4>
@@ -427,12 +458,13 @@ render() {
               </div>
               <div>
                 <p>Place:{item.bookings[0].place}</p>
-                <p>Total:{item.total}</p>
-                <p>Date:{item.bookings[0].date}</p>
+                <p>From :{item.bookings[0].from_place}</p>
+                <p>Type : {item.bookings[0].special_req} and Total:{item.total}</p>
+                <p>Date:{item.bookings[0].date} <span> and  </span>   Time :{item.bookings[0].time}</p>
               </div>
         
         <button onClick ={()=>this.onchat(item.users)} class="btn btn-primary" type='submit'>Chat</button><br/><br/>
-        <button  onClick ={() => this.notify(item.users[0].username,item.bookings[0].place,item.id)} class="btn btn-primary"type='submit'>Send Request</button><br/>
+        <button  onClick ={() => this.notify(item.users[0].username,item.bookings[0].place,item.id,'group')} class="btn btn-primary"type='submit'>Send Request</button><br/>
             
 
       </List.Item>
@@ -473,22 +505,27 @@ render() {
        
 <form onSubmit={this.formsub1}>
 <div class="form-group row">
-<label for="colFormLabel" class="col-sm-10 col-form-label col-form-label">Place</label>
+<label for="colFormLabel" class="col-sm-10 col-form-label col-form-label ">Place</label>
 <div class="col-sm-10">
 <input type="text" className="form-control form-control-sm selx" id="colFormLabel" />
 </div>
 </div>
 <div class="form-group row">
-<label for="colFormLabel" class="col-sm-10 col-form-label col-form-label">Date</label>
+<label for="colFormLabel" class="col-sm-10 col-form-label col-form-label ">From</label>
 <div class="col-sm-10">
-<DatePicker className="selx" name="date" />
+<input type="text" className="form-control form-control-sm selx" id="colFormLabel" />
 </div>
 </div>
 <div class="form-group row">
-<label for="colFormLabel" class="col-sm-10 col-form-label col-form-label">Time</label>
-<div class="col-sm-10">
-<TimePicker className="selx" name="time" />
-</div>
+    <label for="colFormLabel" class="col-sm-10 col-form-label col-form-label">Type</label>
+
+    <select  onChange={(e)=>this.handleChange3(e)}  className='sel'>
+                <option value="None">None</option>
+                <option value="None">City</option>
+                <option value="None">Outing</option>
+                <option value="Medical">Medical Emmergency</option>
+                <option value="Family">Family</option>
+              </select>
 </div>
 <button htmType="submit" class="btn bx" >Next <span><i class="fa fa-arrow-right" aria-hidden="true"></i></span></button>
 </form>
@@ -499,34 +536,30 @@ render() {
 <div className="row justify-content-center align-items-center form2 ">
 <form   onSubmit={this.formsub2}>
 <div class="form-group row">
-<label for="colFormLabel" class="col-sm-10 col-form-label col-form-label">No of Friends</label>
 
-  <select class="form-control sel" name="" id="" onChange={(e)=>this.handleChange2(e)}>
-    <option>0</option>
-    <option>1</option>
-    <option>2</option>
-  </select>
-</div>
 
-<div class="form-group row">
-<label for="colFormLabel" class="col-sm-10 col-form-label col-form-label">How many to share With ?</label>
-
-  <select class="form-control sel" name="" id="" onChange={(e)=>this.handleChange1(e)}>
-    <option>1</option>
-    <option>2</option>
-    <option>3</option>
-  </select>
+      <label for="colFormLabel" class="col-sm-10 col-form-label col-form-label">Time</label>
+      <div class="col-sm-10">
+      <TimePicker className="selx" name="time"  autocomplete="off"/>
+      </div>
 
 </div>
 
 <div class="form-group row">
-<label for="colFormLabel" class="col-sm-10 col-form-label col-form-label">Emmergency</label>
+    <label for="colFormLabel" class="col-sm-10 col-form-label col-form-label">Date</label>
+    <div class="col-sm-10">
+    <DatePicker className="selx" name="date"  autocomplete="off"  />
+    </div>
+</div>
 
-<select  onChange={(e)=>this.handleChange(e)}  className='sel'>
-            <option value="None">None</option>
-            <option value="Medical">Medical Emmergency</option>
-            <option value="Family">Family</option>
-          </select>
+<div class="form-group row">
+    <label for="colFormLabel" class="col-sm-10 col-form-label col-form-label">Friends</label>
+    <select class="form-control sel" name="" id="" onChange={(e)=>this.handleChange2(e)}>
+        <option>0</option>
+        <option>1</option>
+        <option>2</option>
+      </select>
+
 </div>
 
 <button type="submit" class="btn bx">Hit the road</button>
@@ -561,6 +594,44 @@ export default withRouter(connect(mapStatetoprops)(CustomForm));
    
     
    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
      
 // <form
       //   onSubmit ={this.handleFormSubmit} >

@@ -8,9 +8,7 @@ html{
 }
 body {
   margin: 0;
-  font-family: monospace, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: sans-serif !important ;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-weight: 300 !important;
@@ -21,10 +19,36 @@ body {
 }
 
 code {
-  font-family: monospace, Menlo, Monaco, Consolas, 'Courier New';
+  /* font-family: monospace, Menlo, Monaco, Consolas, 'Courier New'; */
+}
+/* .ant-carousel .slick-slide {
+  text-align: center;
+  height: auto;
+  
+  background: #364d79;
+  overflow: hidden;
+}
+
+.ant-carousel .slick-slide h3 {
+  color: #fff;
+} */
+
+.slick-dots{
+  margin-top: 20rem !important;
+}
+.ant-carousel{
+  margin-top:3rem!important ;
+}
+
+.ant-carousel .slide img{
+  object-fit: cover;
+  object-position: center;
 }
 
 .container-fluid{
   padding: 0px;
   margin:0px;
+}
+header {
+  margin:0px !important ;
 }

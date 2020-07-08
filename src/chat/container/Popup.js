@@ -6,10 +6,14 @@ import { Modal} from 'antd';
 import AddChatForm from '../component/Form';
 import * as navactions from '../../store/actions/nav' ;
 
+
+
+
+
 class ADDChatModal extends React.Component {
   
 
-    openaddchatpop =() =>{
+  openaddchatpop =() =>{
         
 		this.props.addChat() ;
 	}

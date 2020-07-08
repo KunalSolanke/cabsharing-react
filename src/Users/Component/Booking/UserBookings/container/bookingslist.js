@@ -25,12 +25,12 @@ class Bookingslist extends Component {
     componentDidUpdate(newProps){
       
       
-        if(!this.state.mounted){
+        if(!this.state.mounted && newProps.token!==null){
         axios.defaults.headers = {
             "Content-Type" : "application/json" ,
             Authorization : "Token " +newProps.token
         }
-        axios.get("http://127.0.0.1:8000/uapi/curr/userbookings/")
+        axios.get("/uapi/curr/userbookings/")
            .then(res => {
                this.setState({
                    bookings:res.data
@@ -49,16 +49,16 @@ class Bookingslist extends Component {
     componentDidMount(){
         var nav= document.querySelector('.main-nav') ;
       nav.style.display = 'none' ;
-        console.log('component mounted')
+        //console.log('component mounted')
         // window.addEventListener('before unload')
         
         if(this.props.token !== null){
-            console.log('getting data')
+            //console.log('getting data')
         axios.defaults.headers = {
             "Content-Type" : "application/json" ,
             Authorization : "Token " +this.props.token
         }
-        axios.get("http://127.0.0.1:8000/uapi/curr/userbookings/")
+        axios.get("/uapi/curr/userbookings/")
            .then(res => {
                this.setState({
                    bookings:res.data
@@ -73,7 +73,7 @@ class Bookingslist extends Component {
           
             <UserLayout>
                 <div className="row justify-content-center align-items-center mb-3 p-3">
-                <div className ="col-lg-10 col-sm-12 col-xs-12">
+                <div className ="col-lg-8 col-sm-12 col-xs-10 col-12">
                   <Booking data={this.state.bookings} name="match" />
                   </div>
                   </div>

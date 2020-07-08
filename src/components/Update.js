@@ -52,7 +52,7 @@ componentDidMount(){
             'Authorization': `Token ${this.props.token}`
         }
 
-        axios.get("http://127.0.0.1:8000/uapi/0/profile/").then
+        axios.get("/uapi/0/profile/").then
         (res => {
            this.setState({
                profile: res.data[0]
@@ -72,7 +72,7 @@ componentWillUpdate(newProps) {
                 'Authorization': `Token ${newProps.token}`
             }
 
-            axios.get("http://127.0.0.1:8000/uapi/0/profile/").then
+            axios.get("/uapi/0/profile/").then
             (res => {
                this.setState({
                    profile: res.data[0]

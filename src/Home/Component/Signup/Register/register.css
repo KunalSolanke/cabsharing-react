@@ -5,19 +5,25 @@
 }
 .container-fluid{
 
-    height:100% ;
+   
     width :100% ;
     font-family: 'Bellota', cursive;
     padding: 0 2 rem ;
     
     
 }
-.box{
-    height:100%;
+.reg{
+    height:130% !important;
+    padding:2rem ;
+    min-height: 100vh !important;
+} 
+.regbox{
+    min-height:100vh !important;
     width:100% ;
     background-image: url('./wave.svg') ;
-    background:translateY(10%) ;
+    background:translateY(70%) ;
     background-size: cover;
+    background-position: top;
     z-index: 3; 
       
 }
@@ -33,7 +39,7 @@
     z-index:-1 ;
 }
 .form{
-    height: 100vh;
+    height: 100%;
     width: auto;
     align-items : center ;
     justify-content: center;
@@ -72,4 +78,5 @@
 }
 .b3{
     background-color: #02D893;
+    padding:.5rem 1.5rem
 }

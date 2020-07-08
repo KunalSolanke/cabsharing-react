@@ -21,15 +21,28 @@ class ChatSerializer(ModelSerializer) :
         participants = validated_data.pop('participants')
         chat= Chats()
         chat.save()
-        print("hi")
+        #print("hi")
         for username in participants :
             contact = get_user_contact(username)
-            print(contact)
+           # print(contact)
             chat.participants.add(contact)
 
         chat.save()
 
         return chat
+
+    def update(self,instance,validated_data) :
+        participants = validated_data.pop('participants') 
+        # print(participants)
+        for p in instance.participants.all() :
+            if p.user.username in participants :
+                continue 
+            else :
+                instance.participants.remove(p)
+        # print(instance.participants.all())
+        instance.save()
+        return instance
+
 
 
 

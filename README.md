@@ -2,8 +2,88 @@
 
 Humraahi - Makes travelling fun.
 
+
+
+
+
+<br>
+
+
+<img src="src\assets\Taxipic.jpg"></img>
+
+
+
 Humraahi is a Cab sharing Website for IIT-G Campus.
 
+
+
+# Techstack
+  1. Frontend 
+      - React 
+      - React-redux 
+      - antd and bootstrap
+      - React router dom 
+      - animes.js (a bit )
+
+
+  2. Backend 
+       - Django 
+       - Django-rest framework 
+       - allauth
+       - rest-auth
+       - django-channels
+
+
+
+# Install .
+Getting the frontend running
+ - npm install 
+ - npm run build
+
+Backend 
+  - pip install -r requirements.txt <br/>
+  or downloading according to your environment .Make sure you have redis-cli insalled locally or globally and add it to path variables
+  - cd into project dir
+  - redis-server (from differnt terminal)
+  - python manage.py collectstatic 
+  - python manage.py runserver
+
+
+  You can use react's 3000 as your development server . ALso you need to take care of your environment varialbles .Like github secret and google api secret and emailing backends.Also the change database settings according to your choice.
+   
+
+
+  
+
+
+
+# Features 
+   1. Realtime chat 
+   2. Realtime notifications of match
+   3. Booking and cancelling a ride anytime .
+   4. Groups already matched can be joined .
+   5. And most other features of a basic site .<br /> 
+      <p>     Profile update<br/>
+              Change password <br>
+              Reset password with email(current not customized)
+              <br>
+              Goggle and Github Login
+      <p>
+
+
+
+
+   Match will be shown which are going to same lace and from same place at exact same date with time diff of +-3 hours .
+   Facebbok Login is not in place as I faced issues while implementing it with rest framework.
+
+
+
+
+
+
+# Screenshots .
+Home page
+  <img src="src/screenshots/webdproject-1.png">
 
 
 
@@ -11,81 +91,15 @@ Humraahi is a Cab sharing Website for IIT-G Campus.
 
 
 # Todo 
-   
-
-   I CAN MAKE MOST OF THIS AFTER EXAMS OR DURING IF NEEDED 
-   There is a lot to do in this project.I was sidetracked by another and lockdown
-
+   1. Profile updating the profile pic .
+      <br><p>     Either a sperate profile serializer need to be made or update existing one to parse file uploads
+      </p>
 
 
-   
-   
-   **Done
-   
-   needs testing
-   for data duplication and etc
-   
-   Point 1 is completed
-   1.There is one major issue currently only two people share the ride.
-
-   
-        -I have added the code in respective to change it to multiple users but needs to be  tested
-
-        these changes are in :
-          [*]  1.Booking model                              user/models
-          [*] 2.Matchlist view                             users/userapi/views
-          [*] 3.Notifications model and consumer            Notifications/models     and Notifications/consumers
-          [*]4.Booked_ride model                                  user/models               
+  2. Deleting chats 
+  
+  3. Allowing to choose member in group(not so immediate change)
 
 
 
 
-          Needs frontend improvement in ui
-
-
-
-
-
-
-
-
-**In process
-
-    2.Profile :
-         1.Update profile(not done)
-         2.Password change(not done)
-         3.Forgot passworfd(not done ,need to add a emailer like smtp)
-         4.logout         -  rest-auth provides path for logout depending on user but here  will have to add view depending on access token 
-
-
-
-
-
-
-    3.Search people:
-         1.search people by names(not done)
-
-
-
-
-
-    4.Improving api serializers for better performance 
-
-          current they are simple apis .None of them is nested depending on the relations.
-          need to update that But this will be a major change both for frontend And backend
-
-
-
-
-
-# Issues 
-
-
-   As mentioned in videos I have some issues 
-   
-
-   1.Login redirect async 
-   
-   2.Chat loading shows weird sys gen text at first
-   
-   3.some ui issues

@@ -3,7 +3,12 @@ import contactsvg from '../assets/contact1.jpg' ;
 import './contact.css'
 
 
+
+//CONTACT FROM
 function Contact() {
+
+
+    //HOOKS - CHECKS FOR ANY UPDATED
     useEffect(()=>{
         var nav= document.querySelector('.main-nav') ;
       if(nav.style.display ==='none' ){
@@ -11,6 +16,9 @@ function Contact() {
       }
 
     },[])
+
+
+
     return (
         <div className="container-fluid contact">
             

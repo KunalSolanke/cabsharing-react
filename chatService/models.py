@@ -5,7 +5,6 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 
 
-
 User = settings.AUTH_USER_MODEL
 # Create your models here.
 
@@ -54,6 +53,7 @@ class Messages(models.Model) :
     contact    = models.ForeignKey(Contact,related_name="messages",on_delete=models.CASCADE)
     timestamp  = models.DateTimeField(auto_now_add=True)
     content   =   models.TextField()
+    # read_by=models.ManyToManyField(Contact,related_name='messages_read')
 
     def __str__(self) :
         return self.contact.user.username
@@ -61,7 +61,7 @@ class Messages(models.Model) :
 
 class Chats(models.Model) :
     participants = models.ManyToManyField(Contact,related_name='chats')
-    messages = models.ManyToManyField(Messages,blank=True)
+    messages = models.ManyToManyField(Messages,blank=True,related_name='chat')
 
 
 

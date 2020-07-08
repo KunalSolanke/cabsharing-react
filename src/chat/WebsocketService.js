@@ -1,6 +1,6 @@
 //import { connect } from "react-redux"
 
-
+export const  chats={}
 class WebscoketService {
 
     static instance = null ;
@@ -16,9 +16,12 @@ class WebscoketService {
     }
 
 
+   
+
     constructor(){
         this.socketRef = null
     }
+    
 
     connect(chatUrl){
         if(chatUrl) {
@@ -26,11 +29,30 @@ class WebscoketService {
         const path = `ws://127.0.0.1:8000/ws/chat/${chatUrl}/` ;
         // console.log(path)
         this.socketRef = new WebSocket(path) ;
+        
+        
         // console.log('connect')
 
 
         this.socketRef.onopen = e => {
-           
+           // console.log(chats[`${chatUrl}`])
+            if(chats[`${chatUrl}`]===undefined){
+              //  console.log('not undef')
+               chats[`${chatUrl}`]=this.socketRef ;
+            }else if(chats[`${chatUrl}`]!==undefined ){
+                if(!chats[`${chatUrl}`].readyState){
+                chats[`${chatUrl}`]=this.socketRef ;
+                }else{
+                   // this.socketRef.close()
+                   chats[`${chatUrl}`].close()
+                   chats[`${chatUrl}`]=this.socketRef
+                }
+    
+            }else {
+                chats[`${chatUrl}`].close()
+                this.disconnect()
+            }
+           // console.log(chats[`${chatUrl}`])
             // console.log("websocket open")
         }
         // this.socketNewMessage(JSON.stringify({message:{
@@ -41,7 +63,7 @@ class WebscoketService {
             this.socketNewMessage(e.data)
             // console.log('websocket sending')
         }
-
+     
         this.socketRef.onerror = e =>{
             console.log(e)
            
@@ -49,10 +71,14 @@ class WebscoketService {
 
         this.socketRef.onclose =() => {
             console.log("closed") ;
+            if(this.recoonect){
             this.connect() ;
-
+            }
+            this.reconnect=1 ;
             ///this is reconnecting
         }
+        
+
 
     }
 }
@@ -62,7 +88,7 @@ class WebscoketService {
     socketNewMessage(data) {
         const parsedata= JSON.parse(data) ;
         if(parsedata.message){
-        console.log(parsedata.message)
+       // console.log(parsedata.message)
       
         const command = parsedata.message.command;
         // console.log("this is" ,command)
@@ -80,7 +106,7 @@ class WebscoketService {
             this.callback[command](parsedata.messages)
         } 
         if (command === 'new_message'){
-            console.log(parsedata.message['message'])
+           // console.log(parsedata.message['message'])
             this.callback[command](parsedata.message['message'])
         }
         if(command==='online'){
@@ -116,10 +142,34 @@ class WebscoketService {
         }
     }
     }
+    reconnet=1
+
+
+
+
+
+
+
+    destroy(){
+        this.reconnect=0
+        this.counter-=1 ;
+        
+        this.socketRef.close(3443,"Force stop")
+        
+        
+    }
+
+
+
+
+
+
+
 
 
 
         fetchMessages(username,id){
+
             this.sendMessage({command: 'fetch_messages',username:username,chatId:id})
         }
 
@@ -131,8 +181,18 @@ class WebscoketService {
             this.sendMessage({command:'online',username:username})
         }
         typing(username,type,id){
-            this.sendMessage({command:'typing',username:username,type:type,id})
+            this.sendMessage({command:'typing',username:username,type:type,chatId:id})
         }
+
+
+
+
+
+
+
+
+
+
         addCallbacks(messagesCallback,newMessagecallback,onlinecallback,typingcallback,type){
             this.callback['messages'] = messagesCallback ;
             this.callback['new_message'] = newMessagecallback ;
@@ -140,13 +200,35 @@ class WebscoketService {
             this.callback['typing']=typingcallback ;
         }
 
+
+
+
+
+
+
+
+
+
         disconnect(){
             return this.socketRef.close() ;
         }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
         sendMessage(data) {
             try{
+                const chatid=data.chatId
                 this.socketRef.send(JSON.stringify({...data}))
 
             }catch(err){
@@ -154,11 +236,30 @@ class WebscoketService {
 
             }
         }
-       state(){
+
+
+
+
+
+
+
+
+
+
+       state(id){
+          
            return this.socketRef.readyState ;
        }
 
         //wait for connection to be steaty
+
+
+
+
+
+
+
+
 
         WaitForSocketConnection(callback) {
         const socket = this.socketRef ;
@@ -179,9 +280,18 @@ class WebscoketService {
 
               
             }
-         ,1) ;}
+         ,100) ;}
         
 }
+
+
+
+
+
+
+
+
+
 
 
 const WebscoketServiceInstance = WebscoketService.getInstance() ;

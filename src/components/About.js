@@ -4,6 +4,10 @@ import './about.css'
 import kunal from '../assets/kunal.jpg'
 import codeclub from '../assets/codeclub.png'
 
+
+
+//ABOUT PAGE OF THE SITE
+//TODO ADD SOCIAL MEDIA LINKS
 function About() {
     useEffect(()=>{
         var nav= document.querySelector('.main-nav') ;

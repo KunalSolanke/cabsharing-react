@@ -1,5 +1,5 @@
 from django.urls import path,re_path
-from user.userapi.views import BookingsviewSets,UserBookings,MatchesListApi,ProfileView,PlacesListView,GroupMatchesList,Booked_ridesListView
+from user.userapi.views import BookingsviewSets,UserBookings,MatchesListApi,ProfileView,PlacesListView,GroupMatchesList,Booked_ridesListView,CancelBookingView,GroupCancelBookingView,GroupToGroupMatching,GrouptoIndividualMatching
 from rest_framework.routers import DefaultRouter
 
 
@@ -19,6 +19,13 @@ urlpatterns.append(re_path("^matches/(?P<pk>.+)/",MatchesListApi.as_view(),name=
 urlpatterns.append(re_path("^groupmatches/(?P<pk>.+)/",GroupMatchesList.as_view(),name='groupmatches'))
 urlpatterns.append(re_path("^places/",PlacesListView.as_view(),name='places'))
 urlpatterns.append(re_path("^booked/",Booked_ridesListView.as_view(),name='booked'))
+urlpatterns.append(re_path("^bookingcancel/(?P<pk>.+)/",CancelBookingView.as_view(),name="cancel"))
+urlpatterns.append(re_path("^groupbookingcancel/(?P<pk>.+)/",GroupCancelBookingView.as_view(),name="groupcancel"))
+urlpatterns.append(re_path("^grouptogroup/(?P<pk>.+)/",GroupToGroupMatching.as_view(),name="gtg"))
+urlpatterns.append(re_path("^grouptoindividual/(?P<pk>.+)/",GrouptoIndividualMatching.as_view(),name="gti"))
+
+
+
 
 
 # router.register(r'matches',MatchesListApi, basename='matches')

@@ -7,28 +7,44 @@ import {withRouter} from 'react-router-dom'
 import * as navactions from '../../store/actions/nav'
 import * as msgactions from '../../store/actions/messages'
 
+
+
+
+
+//This from adds chat to respenctive person We have to tell it the usernames
+
+
 class AddchatForm extends React.Component {
     state = {
         usernames:[],
         error: null
     }
+
+
+  
  
+  //after filling out the form
 
   onFinish = values => {
     console.log('Finish:', values);
     const {usernames } =this.state
-    const combinedusers = [...usernames,this.props.username]
-    console.log(combinedusers)
+
+
+    const combinedusers = [...usernames,this.props.username] //data to be sent to api
+
+    //console.log(combinedusers)
+
+    //apiend pint for chats 
     axios.defaults.headers = {
       'Content-Type' : "application/json",
        'Authorization' : `Token ${this.props.token}`
     }
-    axios.post(`http://127.0.0.1:8000/capi/${this.props.username}/chats/`,{
+    axios.post(`/capi/${this.props.username}/chats/`,{
       messages: []   ,
       participants : combinedusers
     }).then(res => {
       this.props.history.push(`/users/chat/${res.data.id}`)
-      console.log('hello')
+      //console.log('hello')
       this.props.closeaddchatpopup()
       this.props.getuserchats(this.props.username,this.props.token)
     }).catch(err => {
@@ -39,6 +55,12 @@ class AddchatForm extends React.Component {
     })
   };
 
+
+
+
+
+
+  //handles change in the input field
   change= value =>{
       this.setState({
           usernames: value
@@ -85,6 +107,8 @@ render(){
   );
 };
 }
+
+
 const mapstateToprops = state => {
   return {
     username : state.auth.username,

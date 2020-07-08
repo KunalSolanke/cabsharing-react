@@ -1,0 +1,4 @@
+ .ant-upload-list-picture-card .ant-upload-list-item-actions .anticon-delete{
+    display: none!important;
+    pointer-events: none!important;
+}

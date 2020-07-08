@@ -5,6 +5,7 @@ from channels.generic.websocket import WebsocketConsumer
 from chatService.models import Messages
 from django.conf import settings
 from .views import get_last_10_messages,get_user_contact,get_curent_chat
+# from channels.db import database_sync_to_sync
 # from user.models import Message
 
 from Humrahi.models import User
@@ -13,13 +14,12 @@ from Humrahi.models import User
 class ChatConsumer(WebsocketConsumer):
 
 
-
-
     def fetch_messages(self,data):
+        print('fetching')
         messages=get_last_10_messages(data['chatId'])
         context ={
             'command': 'messages',
-            'messages' : self.messages_to_json(messages)
+            'messages' : self.messages_to_json(messages,data['chatId'])
         }
         self.send_message(context)
       
@@ -60,7 +60,7 @@ class ChatConsumer(WebsocketConsumer):
        
         content={
             'command':'new_message',
-            'message':self.message_to_json(message)
+            'message':self.message_to_json(message,data['chatId'])
         }
         current_chat = get_curent_chat(data['chatId'])
         current_chat.messages.add(message)
@@ -72,19 +72,20 @@ class ChatConsumer(WebsocketConsumer):
         
 
 
-    def messages_to_json(self,messages) :
+    def messages_to_json(self,messages,id) :
         result = []
         for  message in messages :
-            result.append(self.message_to_json(message))
+            result.append(self.message_to_json(message,id))
         return result
     
 
-    def message_to_json(self,message):
+    def message_to_json(self,message,id):
         return {
             'id':message.id,
             'author':message.contact.user.username,
             'content':message.content,
-            'timestamp':str(message.timestamp)
+            'timestamp':str(message.timestamp),
+            'chatId':id
         }
 
     commands ={

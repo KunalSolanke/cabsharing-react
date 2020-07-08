@@ -9,6 +9,8 @@ from Humrahi.models import User
 
 # User = settings.AUTH_USER_MODEL
 
+
+#GETS CONTACTS OF USER FOR GIVEN USERNAME
 def get_user_contact(username):
     user = get_object_or_404(User,username = username)
     Contacts = get_object_or_404(Contact,user=user)
@@ -16,6 +18,10 @@ def get_user_contact(username):
     return Contacts
 
 
+
+
+#GETTING CHATS IN WHICH USER PARTICIPATED 
+#TODO DELETE ROUTE FOR DELTING A CHAT ON USER REQUEST
 class ChatView(viewsets.ModelViewSet) :
     authentication_classes = [BasicAuthentication,SessionAuthentication,TokenAuthentication]
     permission_classes = [IsAuthenticated]
@@ -30,3 +36,13 @@ class ChatView(viewsets.ModelViewSet) :
         queryset= contact.chats.all() 
        
         return queryset
+
+
+
+   
+    
+    def get_object(self) :
+        return Chats.objects.get(pk=self.kwargs['pk'])
+   
+
+

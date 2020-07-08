@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 
 import os
 import dj_database_url
+from decouple import config
+import django_heroku
 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -23,12 +25,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'k+1xh&^ueh1^pls5+b2%pdhl*meed_7b=7scycdrh985hcwrr5'
+SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config('DEBUG',default=False)
 
-ALLOWED_HOSTS = ['humraahi-iitg.herokuapp.com' ,'127.0.0.1','http://127.0.0.1:8000','0.0.0.0','localhost','ec2-54-175-117-212.compute-1.amazonaws.com','*.example.com']
+ALLOWED_HOSTS = ['humraahi-iitg.herokuapp.com' ,'127.0.0.1','http://127.0.0.1:8000','0.0.0.0','localhost','ec2-54-175-117-212.compute-1.amazonaws.com','*.example.com','192.168.43.132']
 
 # 640857218379-3qjvelmqgnpvd8k4k868s66mtrrbr2u8.apps.googleusercontent.com
 
@@ -37,6 +39,7 @@ ALLOWED_HOSTS = ['humraahi-iitg.herokuapp.com' ,'127.0.0.1','http://127.0.0.1:80
 
 INSTALLED_APPS = [
     'channels',
+    'django_heroku',
     'channels_redis' ,
     'django.contrib.admin',
     'django.contrib.auth',
@@ -67,6 +70,7 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'rest_auth.registration',
+    'allauth.socialaccount',
 
 
     'whitenoise.runserver_nostatic'
@@ -77,14 +81,15 @@ INSTALLED_APPS = [
 ]
 
 #keys
+# print(config('SECRET_KEY'))
 SOCIAL_AUTH_RAISE_EXCEPTIONS = True
 
-SOCIAL_AUTH_GITHUB_KEY='ba6fbdc2d5def8fd295a'
-SOCIAL_AUTH_GITHUB_SECRET='031ee224412d0b357eb83d57c1f757bf948a4b51'
-SOCIAL_AUTH_FACEBOOK_KEY='203842777356572'
-SOCIAL_AUTH_FACEBOOK_SECRET='5f93dd0a6793a9fab24a011ad1fc7ebf'
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY ='252174418134-a7f85qr6iim7tg8be64st5vak0n0gjk4.apps.googleusercontent.com'
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET='cl13j9uRPzTR4t_LKaU9BbRO'
+SOCIAL_AUTH_GITHUB_KEY=config('GITHUB_KEY')
+SOCIAL_AUTH_GITHUB_SECRET=config('GITHUB_SECRET')
+SOCIAL_AUTH_FACEBOOK_KEY=config('FACEBOOK_KEY')
+SOCIAL_AUTH_FACEBOOK_SECRET=config('FACEBOOK_SECRET')
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY =config('GOOGLE_KEY')
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET=config('GOOGLE_SECRET')
 
 
 SOCIAL_AUTH_URL_NAMESPACE = '/'
@@ -93,10 +98,19 @@ SOCIAL_AUTH_URL_NAMESPACE = '/'
 #cors
 
 CSRF_COOKIE_SECURE = False
+SESSION_COOKIE_SECURE=False
+# CSRF_COOKIE_HTTPONLY=False
 CORS_ORIGIN_ALLOW_ALL = True
-CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOW_CREDENTIALS = False
 DRFSO2_URL_NAMESPACE = 'social'
 SOCIAL_AUTH_REDIRECT_IS_HTTPS= True
+CORS_REPLACE_HTTPS_REFERER=True
+CSRF_TRUSTED_ORIGINS=[
+    'http://localhost:8000',
+    'http://localhost:3000',
+    '192.168.43.132',
+    'humraahi-iitg.herokuapp.com'
+]
 
 
 AUTHENTICATION_BACKENDS = (
@@ -109,20 +123,24 @@ AUTHENTICATION_BACKENDS = (
     'social_core.backends.twitter.TwitterOAuth',
     'social_core.backends.open_id.OpenIdAuth',
     'social_core.backends.google.GoogleOpenId',
+    # 'allauth.account.auth_backends.AutheticationBackend'
   
 )
 
 MIDDLEWARE = [
+     
+     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
+    'corsheaders.middleware.CorsPostCsrfMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'corsheaders.middleware.CorsPostCsrfMiddleware',
+    
+    
+   
     'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
@@ -183,6 +201,17 @@ ACCOUNT_AUTHENTICATION_METHOD ='username'
 ACCOUNT_EMAIL_REQUIRED =False
 ACCOUNT_USERNAME_REQUIRED =True
 ACCOUNT_EMAIL_VERIFICATION = 'none'
+LOGIN_REDIRECT_URL='/users'
+
+
+
+EMAIL_HOST='smtp.gmail.com'
+EMAIL_HOST_USER=config('EMAIL')
+EMAIL_HOST_PASSWORD=config("EMAIL_PASSWORD")
+EMAIL_PORT=config("EMAIL_PORT")
+EMAIL_USE_TLS=True
+DEFAULT_FROM_EMAIL=config("EMAIL")
+SERVER_EMAIL=config("EMAIL")
 
 
 
@@ -192,40 +221,10 @@ ACCOUNT_EMAIL_VERIFICATION = 'none'
 
 # setting my backend as postgres
 
-# DATABASES = {
-#     'default': {
-#         #'ENGINE': 'django.db.backends.sqlite3',
-#         #'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'd5694qn4pfsgnb',
-#         'USER' : 'pkozjzangfvkux' ,
-#         'PASSWORD': '95932083794db167040e65833aca9d7a96eefe691df7e330d649f483d49749bd' ,
-        
-#         # 'TEST': {
-#         #     'NAME': 'chattests'
-#         # },
-#         'HOST':'ec2-54-175-117-212.compute-1.amazonaws.com'
-#     }
-# }
-
-DATABASES = {
-     'default': {
-        #'ENGINE': 'django.db.backends.sqlite3',
-        #'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-        'ENGINE': 'django.db.backends.postgresql',
-        # 'NAME': 'd5694qn4pfsgnb',
-        'NAME':'cabsharing',
-        # 'USER' : 'pkozjzangfvkux' ,
-        'USER':'postgres',
-        # 'PASSWORD': '95932083794db167040e65833aca9d7a96eefe691df7e330d649f483d49749bd' ,
-        'PASSWORD':'1234',
-        
-        # 'TEST': {
-        #     'NAME': 'chattests'
-        # },
-        # 'HOST':'ec2-54-175-117-212.compute-1.amazonaws.com'
-        'HOST':'localhost'
-    }
+DATABASES={
+     'default': dj_database_url.config(
+        default=config('DATABASE_URL')
+    )
 }
 
 
@@ -264,7 +263,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Kolkata'
 
 USE_I18N = True
 
@@ -272,7 +271,7 @@ USE_L10N = True
 
 USE_TZ = True
 
-
+django_heroku.settings(locals())
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
@@ -304,8 +303,21 @@ REST_FRAMEWORK = {
          'rest_framework.authentication.SessionAuthentication',
          'rest_framework.authentication.BasicAuthentication'
         #  'rest_framework_social_oauth2.authentication.SocialAuthentication '
-    )
+    ),
+    'DEFAULT_PARSER_CLASSES': (
+    'rest_framework.parsers.JSONParser',
+    'rest_framework.parsers.FormParser',
+    'rest_framework.parsers.MultiPartParser',
+),
 }
+
+REST_AUTH_SERIALIZERS={
+    "USER_DETAILS_SERIALIZER":'user.userapi.serializers.UserDetailserializer'
+}
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+LOGOUT_ON_PASSWORD_CHANGE=False
+
+
 
 
 

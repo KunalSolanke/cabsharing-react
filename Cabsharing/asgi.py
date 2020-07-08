@@ -21,6 +21,10 @@ import django
 from django.core.asgi import get_asgi_application
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "Cabsharing.settings")
+from dotenv import load_dotenv
+project_folder = os.path.expanduser(' C:\Users\VOLDERMORT\Documents\GitHub\-cabsharing-react') 
+print(project_folder,'hello')
+load_dotenv(os.path.join(project_folder, '.env'))
 django.setup()
 application = get_asgi_application()
 #channel_layer = get_channel_layer()

@@ -1,9 +1,10 @@
 import React, { Component } from 'react' ;
-import { List, Avatar ,Button,Card,notification} from 'antd';
+import { List, Avatar ,Button,Card,notification,Modal} from 'antd';
 import { MessageOutlined, LikeOutlined, StarOutlined,SmileOutlined} from '@ant-design/icons';
 import {connect} from 'react-redux' ;
 import {withRouter} from 'react-router-dom'
 import axios from 'axios' ;
+import Taxipic from '../../../../assets/Taxipic.jpg'
 import NotWebscoketServiceInstance from '../../../../Notification/notWebsocket';
 import * as msgactions from '../../../../store/actions/messages'
 
@@ -23,7 +24,7 @@ class  Booking extends Component {
      this.notify =this.notify.bind(this)
      this.onchat=this.onchat.bind(this)
      this.onchat1=this.onchat1.bind(this)
-     
+     this.handleclosemodal = this.handleclosemodal.bind(this)
   
     this.state = {
      load: false ,
@@ -32,7 +33,8 @@ class  Booking extends Component {
      profiles: [],
      currbookid: 0,
      groupmatches:[],
-     combinedusers:[]
+     combinedusers:[],
+     visible:false 
     
    
     }
@@ -57,7 +59,7 @@ class  Booking extends Component {
        'Authorization' : `Token ${this.props.token}`
     }
     console.log(this.state.combinedusers)
-    axios.post(`http://127.0.0.1:8000/capi/${this.props.username}/chats/`,{
+    axios.post(`/capi/${this.props.username}/chats/`,{
       messages: []   ,
       participants : combinedusers
     }).then(res => {
@@ -88,7 +90,7 @@ class  Booking extends Component {
        'Authorization' : `Token ${this.props.token}`
     }
     console.log(this.state.combinedusers)
-    axios.post(`http://127.0.0.1:8000/capi/${this.props.username}/chats/`,{
+    axios.post(`/capi/${this.props.username}/chats/`,{
       messages: []   ,
       participants : combinedusers
     }).then(res => {
@@ -111,8 +113,11 @@ class  Booking extends Component {
    
     switch(this.props.name) {
       case 'match' : 
+      await this.setState({
+        visible:true
+      })
     
-       await axios.get(`http://127.0.0.1:8000/uapi/matches/${id}/`)
+       await axios.get(`/uapi/matches/${id}/`)
              .then(res =>{
                this.setState({
                  matches : res.data 
@@ -120,18 +125,18 @@ class  Booking extends Component {
      
        })
 
-       await axios.get(`http://127.0.0.1:8000/uapi/groupmatches/${id}/`)
+       await axios.get(`/uapi/groupmatches/${id}/`)
              .then(res =>{
                this.setState({
                  groupmatches : res.data 
                })
      
        })
-
+       
   
       var k = []
       const profiles = [...Array(this.state.matches.length)].map(async (_,index)=> {
-       const response = await axios.get(`http://127.0.0.1:8000/uapi/${this.state.matches[index].user}/profile/`)
+       const response = await axios.get(`/uapi/${this.state.matches[index].user}/profile/`)
        console.log(response)
        k=[...k,response.data[0]]
        await this.setState({
@@ -142,8 +147,13 @@ class  Booking extends Component {
        return response.data[0]
      
     }
+  
+
+   
       
        ) 
+      
+
         break ;
       case 'delete' :console.log('delete') ;
                 break 
@@ -154,13 +164,20 @@ class  Booking extends Component {
   }
 
 
-   notify (username,place,id) {
+  handleclosemodal= (e)=>{
+    this.setState({
+      visible:false
+    })
+  }
+
+   notify (username,place,id,type) {
      console.log('hello')
     const NotifyObj = {
        command: 'new_notification',
        from : this.props.username,
        to:username ,
        type:'request',
+       typeb:type,
        bookfromid:this.state.currbookid,
        booktoid:id,
       
@@ -181,10 +198,68 @@ class  Booking extends Component {
    }
 
 
+   fetchbookings(){
+    if(this.props.token !== null){
+      console.log('getting data')
+  axios.defaults.headers = {
+      "Content-Type" : "application/json" ,
+      Authorization : "Token " +this.props.token
+  }
+  axios.get("/uapi/curr/userbookings/")
+     .then(res => {
+         this.setState({
+             data:res.data
+         }) ;
+      
+     }) 
+  }
+
+   }
 
 
 
+   deletehandler(e,id){
+     e.preventDefault() ;
+     axios.defaults.headers = {
+      "Content-Type" : "application/json" ,
+      'Authorization' : "Token " +this.props.token
+  }
+     axios.delete(`/uapi/bookingcancel/${id}/`).then(
+       res=>{
+             this.fetchbookings()
+       }
+     )
 
+   }
+
+
+   componentDidMount(){
+     this.setState({
+       data:this.props.data
+     })
+     if(this.props.data.length==0){
+       setTimeout(()=>{
+       this.fetchbookings()
+       },200)
+     }
+   }
+
+   componentWillReceiveProps(np){
+     if(np.data!==this.state.data || this.props.data!==np.data){
+       this.setState({
+         data:np.data
+       })
+     }
+     if(np.data.length==0){
+      setTimeout(()=>{
+      this.fetchbookings()
+      },200)
+    }
+   
+   }
+
+
+ 
 
 
 
@@ -207,17 +282,17 @@ class  Booking extends Component {
           />
           </div>
             <div className = "col-lg-8 col-sm-12 col-xs-12">
-              <h3>
-                {this.state.profiles[index].Name}
-              </h3>
+              
               <p>
-                Going to: {match.place}<br/>
-                on : {match.date} <br />
-                friends:{match.allow_with}
+                User :{this.state.profiles[index].Name}<br />
+                Going to: {match.place} and from :{match.from_place}<br/>
+                on : {match.date}  and Time :{match.time}<br />
+                friends onboard:{match.no_friends}  and   Type:{match.special_req}<br/>
+               
               </p>
               
               <button onClick ={()=>this.onchat1(this.state.profiles[index].Name)}class="btn btn-primary" type='submit'>Chat</button><br/><br/>
-              <button  onClick ={() => this.notify(this.state.profiles[index].Name,match.place,match.id)} class="btn btn-primary"type='submit'>Send Request</button><br/>
+              <button  onClick ={() => this.notify(this.state.profiles[index].Name,match.place,match.id,'individual')} class="btn btn-primary"type='submit'>Send Request</button><br/>
               
               
 
@@ -229,6 +304,7 @@ class  Booking extends Component {
       )
       }
     })
+    const {visible} = this.state
     const groupmatches = this.state.groupmatches.map((match,index) => {
       console.log(match.users)
       const users =  match.users.map(u=>{
@@ -238,6 +314,7 @@ class  Booking extends Component {
         )
       })
      
+    
 
 
     
@@ -245,16 +322,17 @@ class  Booking extends Component {
         <Card>
               <div>
                 <h4>People Onboard:</h4>
-                {users}
+                {match.users.map(u=><p>{u.username}</p>)}
               </div>
               <div>
                 <p>Place:{match.bookings[0].place}</p>
-                <p>Total:{match.total}</p>
-                <p>Date:{match.bookings[0].date}</p>
+                <p>From :{match.bookings[0].from_place}</p>
+                <p>Type : {match.bookings[0].special_req} and Total:{match.total}</p>
+                <p>Date:{match.bookings[0].date} <span> and   </span>   Time :{match.bookings[0].time}</p>
               </div>
               
               <button onClick ={()=>this.onchat(match.users)} class="btn btn-primary" type='submit'>Chat</button><br/><br/>
-              <button  onClick ={() => this.notify(match.users[0].username,match.bookings[0].place,match.id)} class="btn btn-primary"type='submit'>Send Request</button><br/>
+              <button  onClick ={() => this.notify(match.users[0].username,match.bookings[0].place,match.id,'group')} class="btn btn-primary"type='submit'>Send Request</button><br/>
             
            </Card>
 
@@ -272,63 +350,72 @@ class  Booking extends Component {
       },
       pageSize: 3,
     }}l̥   
-    dataSource={this.props.data}
+    dataSource={this.state.data}
     
     renderItem={item => (
       <List.Item
         key={item.place}
         className="mb-3 booking"
-        style={{backgroundColor:'#ccab9793'}}
-        actions={[
-          <IconText icon={StarOutlined} text="156" key="list-vertical-star-o" />,
-          <IconText icon={LikeOutlined} text="156" key="list-vertical-like-o" />,
-          <IconText icon={MessageOutlined} text="2" key="list-vertical-message" />,
-        ]}
+        style={{backgroundColor:'#b9faf8'}}
+       
         extra={
           <img
             width={272}
             alt="logo"
-            src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png"
+            // className="img img-responsive"
+            src={Taxipic}
           />
         }
       >
         <List.Item.Meta
           avatar={<Avatar src={item.avatar} />}
           title={<a href={`/users/booking/${item.id}`}>Trip to {item.place}</a>}
-          description={<p>Desciption:{item.special_req}</p>}
+          
         />
-        <p>Urgency:{item.prirority}</p>
 
-
+        <br></br>
+        
+        <div>
+          <p>From :{item.from_place}</p>
+          <p>Friends   :  {item.no_friends} and    Type:{item.special_req}</p>
+          <p>Date : {item.date}  and Time : {item.time || 0}</p>
+        </div>
+        <div>
+          Description : {item.special_req}
+        </div>
+  
 
               
       {(this.props.name ==='match')?
          (<div>
-           <button class ="btn bx" data-toggle="modal" data-target="#model" onClick={(event) => this.clickhandler(event,item.id)}>Find Matches</button>
-           <div  class="modal fade show" id="model" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-  <div class="modal-content">
-  <div class="modal-header">
-  <h5 class="modal-title" id="exampleModalLabel">Available</h5>
-  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-  <span aria-hidden="true">&times;</span>
-  </button>
+           <div className="d-flex flex-row mr-4">
+                  <button class ="btn bx mr-3" data-toggle="modal" data-target="#model" onClick={(event) => this.clickhandler(event,item.id)}>Find Matches</button>
+                  <button class ="btn bx"  onClick={(event) => this.deletehandler(event,item.id)}>Delete Booking</button>
+           </div>
+           <Modal
+                visible={visible}
+                title="Available"
+               
+                onCancel={this.handleclosemodal}
+                footer={[
+                  <Button key="back" onClick={this.handleclosemodal}>
+                    Return
+                  </Button>,
+                 
+                ]}
+              > 
+              <div>
+                <h1>Individuals</h1>
+              {this.state.profiles && matches}
+              <h1>Group</h1>
+              {groupmatches}
+                
+              </div>
+            
+              </Modal>
   </div>
-  <div class="modal-body">
-    <h1>Individuals</h1>
-   {this.state.profiles && matches}
-   <h1>Group</h1>
-   {groupmatches}
-    
-  </div>
-  <div class="modal-footer">
-  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-  {/* <button type="button" class="btn btn-Close">Save changes</button> */}
-  </div>
-  </div>
-  </div>
-  </div>
-         </div>):( <button onClick ={()=>{alert('hi')}}class="btn btn-primary" type='submit'>Chat</button>)
+  
+  ):( <button onClick ={()=>{alert('hi')}}class="btn btn-primary" type='submit'>Chat</button>)
               
     }
 

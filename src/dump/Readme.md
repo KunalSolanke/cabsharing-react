@@ -144,3 +144,42 @@
   //   }
   // };
       
+
+
+
+
+# DATABASES = {
+#     'default': {
+#         #'ENGINE': 'django.db.backends.sqlite3',
+#         #'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'd5694qn4pfsgnb',
+#         'USER' : 'pkozjzangfvkux' ,
+#         'PASSWORD': '95932083794db167040e65833aca9d7a96eefe691df7e330d649f483d49749bd' ,
+        
+#         # 'TEST': {
+#         #     'NAME': 'chattests'
+#         # },
+#         'HOST':'ec2-54-175-117-212.compute-1.amazonaws.com'
+#     }
+# }
+
+DATABASES = {
+    #  'default': {
+    #     #'ENGINE': 'django.db.backends.sqlite3',
+    #     #'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    #     'ENGINE': 'django.db.backends.postgresql',
+    #     # 'NAME': 'd5694qn4pfsgnb',
+    #     'NAME':'cabsharing',
+    #     # 'USER' : 'pkozjzangfvkux' ,
+    #     'USER':'postgres',
+    #     # 'PASSWORD': '95932083794db167040e65833aca9d7a96eefe691df7e330d649f483d49749bd' ,
+    #     'PASSWORD':'1234',
+        
+    #     # 'TEST': {
+    #     #     'NAME': 'chattests'
+    #     # },
+    #     # 'HOST':'ec2-54-175-117-212.compute-1.amazonaws.com'
+    #     'HOST':'localhost'
+    # }
+}

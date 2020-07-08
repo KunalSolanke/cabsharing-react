@@ -4,6 +4,10 @@ import * as msgactions from '../store/actions/messages'
 import {withRouter} from 'react-router-dom' ;
 import {connect} from 'react-redux'
 
+
+// ALMOST USELESS  🤣🤣🤣
+
+
 export class Index extends Component {
     constructor(props) {
         super(props)
@@ -15,7 +19,7 @@ export class Index extends Component {
     }
     
     componentDidMount(){
-        console.log("hi")
+        //console.log("hi")
         
     }
     render() {

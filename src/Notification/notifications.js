@@ -18,31 +18,61 @@ export class Notifications extends Component {
         this.state = {
           
         }
+  }
+
+  //NOTIFIVATION CONFIRM HANDLER 
+  confirmhandler(username,idfrom,idto,type,id){
+          const NotifyObj = {
+            command: 'new_notification',
+            from : this.props.username,
+            to:username ,
+            bookfromid: idfrom,
+            booktoid:idto,
+            type:'confirm',
+            typeb:type,
+            notification: `hello there !!${this.props.username} have accepted your request to go to look the booked scetion`
+      
+        }
+        NotWebscoketServiceInstance.newChatMessage(NotifyObj) ;
+        NotWebscoketServiceInstance.setreadandfetch(this.props.username,id)
     }
-    
+
+
+
+
+    readhandler(id){
+      NotWebscoketServiceInstance.setreadandfetch(this.props.username,id)  
+    }
+
+
+
     renderNotifications(notifications) {
-      console.log('Hi') ;
-      return this.props.messages.map(message => {
-        return (
-          <Row style ={{ paddingTop: '2vh'}}>
-            <Card title='New Notification'>
-              <p>{message.content}</p><br />
-              { message.type === 'request' ?
-              <Button style ={{ left: '2vw'}} type="primary" size="small" >
-          Confirm Ride
-               </Button> :<Button style ={{ left: '2vw'}} type="primary" size="small" >
-          Ok
-        </Button> }
-              
-            </Card>
-          </Row>
-        )
-      })
+     // console.log('Hi') ;
+          return this.props.messages.map(message => {
+            return (
+              <Row style ={{ paddingTop: '2vh'}}>
+                <Card title='New Notification'>
+                  <p>{message.content}</p><br />
+                  <p>Time:{message.timestamp}</p>
+                  { message.type === 'request' ?
+                  <>
+                  <Button style ={{ left: '2vw'}} type="primary" size="small" onClick={()=>this.confirmhandler(message.author,message.bookfromid,message.booktoid,message.typeb,message.id)}>
+              Confirm Ride 
+                  </Button>
+                  <Button style ={{ left: '5vw'}} type="primary" size="small" onClick={()=>this.readhandler(message.id)}>Mark Read</Button>
+                   </> :<Button style ={{ left: '2vw'}} type="primary" size="small" onClick={()=>this.readhandler(message.id)}>
+              Mark read
+            </Button> }
+                  
+                </Card>
+              </Row>
+            )
+          })
     }
 
 
     
-    drawwidth(){
+  drawwidth(){
       var width=window.innerWidth ;
       if(width>750){
         return '40vw'
@@ -60,20 +90,19 @@ export class Notifications extends Component {
         <div>    
         <Drawer
           width={this.drawwidth()}
-          drawerStyle={{ backgroundColor:'#e8ffe8'}}
+          drawerStyle={{ backgroundColor:'#007991'}}
           placement="right"
           closable={false}
           onClose={this.props.onClose}
           visible={this.props.visible}
         >
-          <div className='profile-drawer'>
-        <h3><p className="site-description-item-profile-p">
-            Notifications
-          </p></h3>
-          {this.renderNotifications(this.state.messages)}
-          
-          </div>
-          <button className="btn  btn-danger" onClick={this.props.onClose}>close</button>
+              <div className='profile-drawer'>
+                  <h3><p className="site-description-item-profile-p">
+                      Notifications
+                    </p></h3>
+                    {this.renderNotifications(this.state.messages)}
+              </div>
+              <button className="btn  btn-danger" onClick={this.props.onClose}>close</button>
         </Drawer>
       </div>
         )
@@ -82,7 +111,7 @@ export class Notifications extends Component {
 const mapStateToprops = state => {
     return {
         username : state.auth.username,
-        messages : state.message.messages
+        messages : state.notification.messages
     }
 }
 

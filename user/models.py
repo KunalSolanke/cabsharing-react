@@ -53,6 +53,7 @@ class Bookings(models.Model) :
     date=models.DateField(("When?"), auto_now=False, auto_now_add=False)
     time=models.TimeField(("Exactly_when"), auto_now=False, auto_now_add=False)
     place=models.CharField(("Location"), max_length=50,default='')
+    from_place=models.CharField(("from_Location"), max_length=50,default='')
     is_booked=models.BooleanField(("is_booked"),default=False)
     special_req=models.TextField(("Special_request"),default='')
     priority_name=models.CharField(("priority"), max_length=50,default='')

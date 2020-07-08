@@ -48,7 +48,7 @@ export const getuserchats =(username,token) =>{
 
 
     }
-    axios.get(`http://127.0.0.1:8000/capi/${username}/chats/`)
+    axios.get(`/capi/${username}/chats/`)
 		.then(res => {
 			    dispatch(getUserchatSuccess(res.data))
 			

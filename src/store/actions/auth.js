@@ -7,8 +7,6 @@ import axios from 'axios' ;
 
 export const authStart = () => {
    return { type : actiontypes.AUTH_START}
-
-
 }
 
 
@@ -17,8 +15,6 @@ export const authSucces = (token,username) => {
     token : token,
     username : username
    }
-
-
 }
 
 
@@ -27,8 +23,6 @@ export const authFail = error => {
     type : actiontypes.AUTH_FAIL,
     error : error
     }
-
-
 }
 
 
@@ -39,10 +33,11 @@ export const authLogout= () => {
 
 
     return {
-        type: actiontypes.AUTH_LOGOUT 
+        type: actiontypes.AUTH_LOGOUT ,
+        username:null,
+        token:null,
+        email:null
     }
-
-
 }
 
 
@@ -70,7 +65,10 @@ export const authLogin = (username,password) =>{
     return dispatch => {
         localStorage.setItem('username',username) ;
         dispatch(authStart()) ;
-        axios.post("http://127.0.0.1:8000/rest-auth/login/",
+        axios.defaults.headers={
+            'Content-Type':'application/json'
+        }
+        axios.post("/rest-auth/login/",
         {
             username:username, 
             password : password
@@ -90,18 +88,26 @@ export const authLogin = (username,password) =>{
 
         })
         .catch(err => {
+            if(err!=={}){
             dispatch(authFail(err))
+            }
             localStorage.setItem('username','') ;
         })
     }
 }
+
+
+
+
+
+
 
 export const authSignUp = (username,email,pass1,pass2) =>{
     //dispach is a method that is call to action
     return dispatch => {
         localStorage.setItem('username',username) ;
         dispatch(authStart()) ;
-        axios.post("http://127.0.0.1:8000/rest-auth/registration/",
+        axios.post("/rest-auth/registration/",
         {
             username:username, 
             email:email,
@@ -109,6 +115,7 @@ export const authSignUp = (username,email,pass1,pass2) =>{
             password2 : pass2 
         })
         .then( (res) => {
+           // console.log("error")
             const token = res.data.key ;
             const username =localStorage.getItem('username') ;
 
@@ -118,15 +125,37 @@ export const authSignUp = (username,email,pass1,pass2) =>{
             localStorage.setItem('expiry',expiry) ;
             ;
             dispatch(authSucces(token,username)) ;
+            // axios.defaults.headers={
+            //     'Content-Type':'application/json',
+            //     'Authorization':`Token ${token}`
+            // }
+            // axios.post('http://127.0.0.1:8000/rest-auth/registration/verify-email/',{
+            //     'key':token
+            // })
             dispatch(checkauthtimeout(3600)) ;
+            
 
         })
-        .catch(err => {
+        .catch((err) => {
             localStorage.setItem('username','') ;
-            dispatch(authFail(err))
+            console.log(err)
+            if(err.response){
+                //console.log(err.response.status,err.response.data)
+                dispatch(authFail(err.response.data))
+            }else if(err.request){
+                dispatch(authFail(err.request))
+            }else{
+                if(err!=={}){
+                dispatch(authFail(err))
+                }
+            }
+            
         })
     }
 }
+
+
+
 
 
 
@@ -155,11 +184,18 @@ export const authCheckState = () => {
 
 
 
+
+
+
+
 export const socialLogin = (response,provider,redirect) => {
     return dispatch => {
         dispatch(authStart()) ;
+        axios.defaults.headers={
+            'Content-Type':'application/json'
+        }
     
-      axios.post(`http://localhost:8000/api/login/social/token_user/${provider}/`,{
+      axios.post(`/api/login/social/token_user/${provider}/`,{
         "method" : "POST",
         "mode" : "cors" ,
         "code" :response.code,
@@ -174,12 +210,37 @@ export const socialLogin = (response,provider,redirect) => {
             sessionStorage.setItem('userdata',res)
             sessionStorage.getItem('userdata')
             localStorage.setItem('expiry',expiry) ;
-            dispatch(authSucces(token)) ;
+            dispatch(authSucces(token,res.data.username)) ;
             dispatch(checkauthtimeout(3600)) 
       }).catch(err => {
         dispatch(authFail(err))
     })
 
 
+    }
+}
+
+
+
+
+
+
+
+
+
+export const authlogout = (key)=>{
+    return dispatch =>{
+        axios.defaults.headers ={
+            'Content-Type':'application/json',
+            'Authorization':`Token ${key}`
+        }
+        axios.post("/rest-auth/logout/",{
+            key
+        }).then(res=>{
+            console.log("logged out ")
+            dispatch(authLogout())
+        }).catch(err=>{
+            dispatch(authFail(err))
+        })
     }
 }

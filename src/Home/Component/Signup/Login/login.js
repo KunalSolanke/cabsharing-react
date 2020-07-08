@@ -7,6 +7,10 @@ import {connect} from 'react-redux' ;
 import * as actions from '../../../../store/actions/auth' ;
 import LoginForm from './LoginForm';
 import Absolutewrapper from '../../../../components/Absolutewrapper';
+import {withRouter} from 'react-router-dom' ;
+import NotWebscoketInstance from '../../../../Notification/notWebsocket'
+//import WebSocketInstance from '../../../../chat/WebsocketService'
+import {chats} from '../../../../chat/WebsocketService';
 
 
   
@@ -24,16 +28,30 @@ class Login extends Component {
 
     
     componentDidMount(){
+        if(NotWebscoketInstance.counter===1){
+            NotWebscoketInstance.destroy()
+        }
+        for(const [key,value] of Object.entries(chats)){
+            if(value.readyState){
+                value.close()
+            }
+        }
+
         var nav= document.querySelector('.main-nav') ;
       if(nav.style.display ==='none' ){
           nav.style.display='contents';
       }
     }
 
-   componentWillReceiveProps(newProps){
-       if(this.props!== newProps){
-       this.props=newProps ;
+   UNSAFE_componentWillReceiveProps(newProps){
+       setTimeout(()=>{
+       if(this.props.usernmae!== newProps.username|| newProps.token!==this.props.token ||newProps.error!==this.props.error ){
+        //console.log(this.props.username!== newProps.username|| newProps.token!==this.props.token ||newProps.error!==this.props.error,this.props.error,newProps.error,newProps.token,this.props.token,newProps.username,this.props.username )
+       //this.props=newProps ;
+       if(newProps.token!==null && newProps.error===null&& newProps.username.length>0){
+           this.props.history.push('/users')
        }
+       }},200)
    }
     render() {
         let error = null ;
@@ -49,12 +67,14 @@ class Login extends Component {
     <div className="row box justify-content-center align-items-center">
        <div className="col-lg-6 col-sm-12 p-2  svg">
             <img  src={loginman} alt=""></img>
+            
        </div>
        <div className="col-lg-6 col-sm-12 p-3  form ">
     
            <div className="d-flex flex-column justify-content-center align-center look">
               <div className=" flex-row img justify-content-center align-center">
                     <img src={avatar} alt="" className="face"></img><br />
+                    
               </div>
               {error}
               { (this.props.loading) ?  <Spin size="large" /> :
@@ -78,7 +98,9 @@ class Login extends Component {
 const mapStatetoprops = (state) => {
     return {
         loading : state.auth.loading,
-        error : state.auth.error
+        error : state.auth.error,
+        username:state.auth.username,
+        token:state.auth.token
     }
 }
 
@@ -92,4 +114,4 @@ const mapDispatchtoprops = dispatch =>{
 
 
 
-export default connect(mapStatetoprops,mapDispatchtoprops)(Login) 
+export default withRouter(connect(mapStatetoprops,mapDispatchtoprops)(Login)) ;

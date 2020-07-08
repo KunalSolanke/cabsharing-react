@@ -28,7 +28,7 @@ class BookingsDetail extends Component {
         }
     
         const bookid = this.props.match.params.bookid ;
-        axios.delete(`http://127.0.0.1:8000/uapi/bookings/${bookid}/`)
+        axios.delete(`/uapi/bookings/${bookid}/`)
         this.props.history.push('/users') ;
         this.forceUpdate() ;
     }else {
@@ -46,9 +46,9 @@ class BookingsDetail extends Component {
         const bookid = this.props.match.params.bookid ;
         
         
-        axios.get(`http://127.0.0.1:8000/uapi/bookings/${bookid}/`)
+        axios.get(`/uapi/bookings/${bookid}/`)
            .then(res => {
-               console.log("hi",res)
+               //console.log("hi",res)
                this.setState({
                    booking:res.data
                }) ;

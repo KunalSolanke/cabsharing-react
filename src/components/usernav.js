@@ -8,9 +8,9 @@ function Usernav() {
         <header class="user-head">
         
 <div className="container-fluid mb-2">
-<nav className="navbar navbar-expand-lg navbar-dark bg-dark text-white ">
+<nav className="navbar navbar-expand-lg navbar-toggleable usernav text-white ">
     <a className="navbar-brand text-white" href="#"><h3><i className="fa fa-car fa-white" aria-hidden="true"></i>Humraahi</h3></a>
-    <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <button className="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span className="navbar-toggler-icon  text-white"></span>
     </button>
     <div className="collapse navbar-collapse text-white " id="navbarSupportedContent">

@@ -4,10 +4,19 @@
     display:flex ;
     justify-content: space-between;
     align-items: center;
-    padding:10px ;
+    padding:10px 0px ;
     height:auto ;
-    width:auto
+    width:auto ;
+    font-family: Roboto ,'sans-serif' !important ;
 
+}
+.headera{
+    padding-top:1rem ;
+}
+.headera h3{
+    font-family: 'Alegreya', serif;
+    font-size: 2.09rem;
+    font-weight: 400;
 }
 .user-head .head-nav{
    
@@ -15,7 +24,7 @@
     justify-content:space-around;
 }
 .user-head .site{
-    font-family: 'Montserrat', cursive;
+    font-family: Roboto,Arial, Helvetica, sans-serif !important;
     padding:0rem ;
     margin:0rem ;
     color: rgba(0, 161, 206, 1)
@@ -53,7 +62,7 @@
 
 
 .hi{
-  background-color:#f7dece8a ;
+  background-color:#ffeef2 ;
   height:100% ;
   min-height:100vh ;
   display: flex ;
@@ -61,14 +70,25 @@
   justify-content: space-between;
 
 }
+.usernav {
+    background-color:#7c6c77 !important ;
+}
 .modal-backdrop{
     z-index:-1!important ;
 }
 .modal .fade{
     z-index: 100!important ;
 }
+.modal .fade .modal-dialog{
+    -webkit-transform: inherit!important;
+}
+.new_scoll{
+    overflow-x: hidden;
+    scrollbar-width: .1em;
+}
 .new_scroll::-webkit-scrollbar {
-    width: 1em;
+    width: .1em;
+    overflow-x: hidden;
   }
 
   .modal-dialog{
@@ -77,15 +97,28 @@
  
   
 .new_scroll::-webkit-scrollbar-track {
-    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    box-shadow: inset 0 0 2px rgba(112, 20, 20, 0.3);
   }
 .new_scroll::-webkit-scrollbar-thumb {
     background-color: darkgrey;
+    outline: 0px solid rgb(104, 163, 223);
+  }
+  body::-webkit-scrollbar {
+    
+  }
+   
+  body::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    
+  }
+   
+  body::-webkit-scrollbar-thumb {
+    background-color:#dd7d93;
     outline: 1px solid slategrey;
   }
-
   .place{
-      background-color:#ccab9793;
+      background-color:#bff;
+      font-size: 16px !important;
   }
 
 
@@ -105,4 +138,8 @@
 .profile_pic{
     width:100px ;
     height:100px ;
+}
+
+.modal {
+    overflow-y: scroll !important ;
 }
