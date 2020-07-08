@@ -8,7 +8,7 @@ import {connect} from 'react-redux' ;
 import * as actions from '../../../../store/actions/auth' ;
 import Absolutewrapper from '../../../../components/Absolutewrapper';
 import GitHubLogin from 'react-github-login' ;
-//import config from '../../../../config.json';
+import config from '../../../../config.json';
 import axios from 'axios' ;
 import {withRouter} from 'react-router-dom' ;
 import {Popover} from 'antd'
@@ -198,7 +198,7 @@ render() {
                             <h2 className="align-center">--OR--</h2>
                             <div className="d-flex flex-column">
                       <GoogleLogin
-                                          clientId={process.env.GOOGLE_KEY}
+                                          clientId={config.GOOGLE_KEY}
                                           buttonText="Login"
                                           onSuccess={this.googleResponse}
                                           className="google-button"
@@ -208,7 +208,7 @@ render() {
                                           type="dark"
                                           ></GoogleLogin>
                         <br/>
-                      <GitHubLogin clientId={process.env.GITHUB_KEY}
+                      <GitHubLogin clientId={config.GITHUB_KEY}
                         redirectUri= ''
                         responseType='code'
                         className="github-button"

@@ -2,7 +2,7 @@ import React from 'react' ;
 // import TwitterLogin from 'react-twitter-auth';
 // import FacebookLogin from 'react-facebook-login';
 import { GoogleLogin } from 'react-google-login';
-//import config from '../../../../config.json';
+import config from '../../../../config.json';
 import axios from 'axios' ;
 import GitHubLogin from 'react-github-login' ;
 import {PassForm} from '../../../../components/resetpassword'
@@ -123,7 +123,7 @@ class LoginForm extends React.Component {
     <h4 className="align-center">OR </h4>
     <div className="d-flex flex-column">
     <GoogleLogin
-                         clientId={process.env.GOOGLE_KEY}
+                         clientId={config.GOOGLE_KEY}
                          buttonText="Login"
                          onSuccess={()=>this.googleResponse}
                          className="google-button"
@@ -133,7 +133,7 @@ class LoginForm extends React.Component {
                         type="dark"
                          ></GoogleLogin>
       <br/>
-     <GitHubLogin clientId={process.env.GITHUB_KEY}
+     <GitHubLogin clientId={config.GITHUB_KEY}
        redirectUri= ''
        responseType='code'
        className="github-button"

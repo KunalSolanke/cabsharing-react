@@ -13,7 +13,11 @@ Humraahi - Makes travelling fun.
 
 
 
-Humraahi is a Cab sharing Website for IIT-G Campus.
+<strong>Humraahi</strong> is a Cab sharing Website for IIT-G Campus.<br/><br/>
+The site is currently running on heroku at -
+<a href="https://humraahi-iitg.herokuapp.com/">https://humraahi-iitg.herokuapp.com/</a>
+
+
 
 
 
@@ -32,6 +36,11 @@ Humraahi is a Cab sharing Website for IIT-G Campus.
        - allauth
        - rest-auth
        - django-channels
+   
+   
+   3. Some functionalities might be down on heroku deploy like
+      1. redis-server is not added as heroku requires to add credit card to add two or more addons.
+
 
 
 
