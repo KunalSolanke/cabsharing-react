@@ -13,7 +13,7 @@ urlpatterns = [
    
     path('uapi/',include('user.userapi.urls')),
     path('capi/',include('chatService.api.urls')),
-    url(r'^humraahi-admin/, admin.site.urls),
+    url(r'^humraahi-admin/', admin.site.urls),
     url(r'^api/login/', include('rest_social_auth.urls_jwt')),
     url(r'^api/login/', include('rest_social_auth.urls_token')),
     url(r'^api/login/', include('rest_social_auth.urls_session')),   
