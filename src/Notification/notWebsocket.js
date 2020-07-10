@@ -55,7 +55,7 @@ class NotWebscoketService {
                     //        },5*1000*60)
                     //    }
 
-                    if(this.counter==22){
+                    if(this.counter===22){
                         this.destroy()
                     }
                     
@@ -146,7 +146,7 @@ class NotWebscoketService {
                        // console.log(parsedata.message['status'])
                         this.callback[command](parsedata.message['status'])
                     }
-                    if(command=='fetch_status'){
+                    if(command==='fetch_status'){
                         //console.log(parsedata.message['status'])
                         this.callback[command](parsedata.message['status'])
                     }

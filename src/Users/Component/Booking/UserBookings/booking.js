@@ -1,6 +1,6 @@
 import React, { Component } from 'react' ;
 import { List, Avatar ,Button,Card,notification,Modal} from 'antd';
-import { MessageOutlined, LikeOutlined, StarOutlined,SmileOutlined} from '@ant-design/icons';
+import { SmileOutlined} from '@ant-design/icons';
 import {connect} from 'react-redux' ;
 import {withRouter} from 'react-router-dom'
 import axios from 'axios' ;
@@ -8,12 +8,7 @@ import Taxipic from '../../../../assets/Taxipic.jpg'
 import NotWebscoketServiceInstance from '../../../../Notification/notWebsocket';
 import * as msgactions from '../../../../store/actions/messages'
 
-const IconText = ({ icon, text }) => (
-  <span>
-    {React.createElement(icon, { style: { marginRight: 8 } })}
-    {text}
-  </span>
-);
+
 
 
 class  Booking extends Component {

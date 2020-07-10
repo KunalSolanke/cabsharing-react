@@ -4,7 +4,7 @@ import PlaceCarousel from './userHome/explorecarousel';
 import {connect} from 'react-redux' ;
 import {withRouter} from 'react-router-dom'
 import * as msgactions from '../../store/actions/notifcations'
-import NotWebscoketServiceInstance from '../../Notification/notWebsocket';
+//import NotWebscoketServiceInstance from '../../Notification/notWebsocket';
 import mpstyles from './Profile/container/maps' ;
 import PlacesList from './userHome/explaceslist' ;
 

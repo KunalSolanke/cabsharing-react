@@ -37,7 +37,7 @@ const ProfileImage = (props) => {
     console.log(newFileList)
       const new_Profile = newFileList.pop();
      
-      setFileList(Array(new_Profile.pop()));
+      setFileList(Array(new_Profile));
      
   };
 

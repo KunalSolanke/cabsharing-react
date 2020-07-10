@@ -5,7 +5,7 @@ import axios from 'axios' ;
 import UserLayout from '../../../../../containers/userLayout';
 import {connect}  from 'react-redux' ;
 import {withRouter} from 'react-router-dom' ;
-import Absolutewrapper from '../../../../../components/Absolutewrapper';
+// import Absolutewrapper from '../../../../../components/Absolutewrapper';
 
 
 

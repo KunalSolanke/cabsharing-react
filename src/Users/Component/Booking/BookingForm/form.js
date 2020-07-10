@@ -4,10 +4,10 @@ import {
   TimePicker,
   Spin
 } from 'antd';
-import { List, Avatar ,Button,Card,notification} from 'antd';
-import { MessageOutlined, LikeOutlined, StarOutlined,SmileOutlined} from '@ant-design/icons';
-import UserLayout from '../../../../containers/userLayout';
-import Booking from '../UserBookings/booking' ;
+import { List, Avatar ,Card,notification} from 'antd';
+import { SmileOutlined} from '@ant-design/icons';
+// import UserLayout from '../../../../containers/userLayout';
+// import Booking from '../UserBookings/booking' ;
 import './form.css'
 import {connect }  from 'react-redux' ;
 import {withRouter} from 'react-router-dom' ;
@@ -19,12 +19,12 @@ import Taxipic from '../../../../assets/Taxipic.jpg'
 
 
 
-const IconText = ({ icon, text }) => (
-  <span>
-    {React.createElement(icon, { style: { marginRight: 8 } })}
-    {text}
-  </span>
-);
+// const IconText = ({ icon, text }) => (
+//   <span>
+//     {React.createElement(icon, { style: { marginRight: 8 } })}
+//     {text}
+//   </span>
+// );
 class CustomForm extends React.Component {
 
   constructor(props) {

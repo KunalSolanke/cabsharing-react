@@ -2,21 +2,10 @@
 
 Humraahi - Makes travelling fun.
 
-
-
-
-
 <br>
-
-
 <img src="src\assets\Taxipic.jpg"></img>
 
-
-
 <strong>Humraahi</strong> is a Cab sharing Website for IIT-G Campus.<br/><br/>
-The site is currently running on heroku at -
-<a href="https://humraahi-iitg.herokuapp.com/">https://humraahi-iitg.herokuapp.com/</a>
-
 
 
 
@@ -28,6 +17,7 @@ The site is currently running on heroku at -
       - antd and bootstrap
       - React router dom 
       - animes.js (a bit )
+      - react-github/google-login
 
 
   2. Backend 
@@ -38,8 +28,7 @@ The site is currently running on heroku at -
        - django-channels
    
    
-   3. Some functionalities might be down on heroku deploy like
-      1. redis-server is not added as heroku requires to add credit card to add two or more addons.
+   
 
 
 
@@ -90,10 +79,6 @@ Backend
 
 
 
-# Screenshots .
-Home page
-  <img src="src/screenshots/webdproject-1.png">
-
 
 
 
@@ -107,8 +92,40 @@ Home page
 
   2. Deleting chats 
   
-  3. Allowing to choose member in group(not so immediate change)
+  3. Allowing to choose no of members for more than 4 member in group(not so immediate change)
 
+  4. Aws deploy ??
+      - The site is currently running on heroku at -
+<a href="https://humraahi-iitg.herokuapp.com/">https://humraahi-iitg.herokuapp.com/</a>
+But It has problems . As it turn out ,heroku needs credit card for more than one addons .So redis instance is not made which makes the notifications and chat features === NULL.
+
+      - Some functionalities might be down on heroku deploy like
+          1. redis-server is not added as heroku requires to add credit card to add two or more addons.
+
+5. Adding map 
+   - Google apis need card too.I found another service but didnt get time to add it.
+
+
+# Gallery .
+Home page
+  <img src="src/screenshots/langingpageg.png">
+User Login 
+<img src="src/screenshots/signin.png">
+User SignUp
+<img src="src/screenshots/login.png">
+UserDashboard
+<img src="src/screenshots/userhome.png">
+<img src="src/screenshots/userhome2.png">
+Booking ride
+<img src="src/screenshots/bookride.png">
+Profile
+<img src="src/screenshots/profile.png">
+chat
+<img src="src/screenshots/chat1.png">
+<img src="src/screenshots/chat2.png">
+contact 
+<img src="src/screenshots/aboutus.png">
+<img src="src/screenshots/contact.png">
 
 
 

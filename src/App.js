@@ -1,8 +1,8 @@
 import React, { Component } from 'react' ;
 import {BrowserRouter as Router} from 'react-router-dom' ;
 import BaseRouter from './route' ;
-import {connect } from 'react-redux' ;
-import * as actions from './store/actions/auth' ;
+// import {connect } from 'react-redux' ;
+// import * as actions from './store/actions/auth' ;
 
 
 
@@ -15,7 +15,7 @@ export class App extends Component {
    
 
     componentDidMount() {
-        this.props.onTryAutoSignUp() ;
+       // this.props.onTryAutoSignUp() ;
        
     }
     render() {
@@ -35,17 +35,17 @@ export class App extends Component {
     }
 }
 
-const mapStatetoProps = state => {
-    return {
-        isAuthenticate : state.auth.token !==null 
-    }
-}
+// const mapStatetoProps = state => {
+//     return {
+//         isAuthenticate : state.auth.token !==null 
+//     }
+// }
 
-const mapDispatchToprops = dispatch => {
-    return {
-        onTryAutoSignUp : () =>dispatch(actions.authCheckState())
-    }
-}
+// const mapDispatchToprops = dispatch => {
+//     return {
+//         onTryAutoSignUp : () =>dispatch(actions.authCheckState())
+//     }
+// }
 
-export default connect(mapStatetoProps,mapDispatchToprops)(App);
+export default   App;
 

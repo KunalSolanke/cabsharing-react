@@ -5,7 +5,7 @@ import { GoogleLogin } from 'react-google-login';
 import config from '../../../../config.json';
 import axios from 'axios' ;
 import GitHubLogin from 'react-github-login' ;
-import {PassForm} from '../../../../components/resetpassword'
+// import {PassForm} from '../../../../components/resetpassword'
 
 class LoginForm extends React.Component {
 
@@ -118,7 +118,7 @@ class LoginForm extends React.Component {
     
    
     <button htmltype="submit" className="btn btn-success b3">Login</button>
-    <a href="/accounts/reset/" style={{padding:'0rem 1rem',fontSize:'15px'}}>Forgot Password?</a><br></br>
+    <a href="/accounts/password/reset/" style={{padding:'0rem 1rem',fontSize:'15px'}}>Forgot Password?</a><br></br>
     <br></br>
     <h4 className="align-center">OR </h4>
     <div className="d-flex flex-column">

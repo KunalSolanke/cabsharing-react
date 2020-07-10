@@ -178,19 +178,19 @@
 @media (max-width:380px){
     .form1{
         width:90vw ;
-        margin-left:0px ;
+        margin-left:10px ;
         left:0% ;
     }
     .form2{
          width:90vw ;
-        margin-left:0px ;
+        margin-left:1mm ;
         margin-top:30px ;
      }
      .form-container{
          margin-left: 10px;
      }
      .circs{
-         margin-left: 10px;
+         margin-left: 18px;
      }
 
 

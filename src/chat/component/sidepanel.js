@@ -67,7 +67,7 @@ export class Sidepanel extends Component {
 
 
  initializeNot(){
-		if (NotWebscoketServiceInstance.counter==0){
+		if (NotWebscoketServiceInstance.counter===0){
 		    NotWebscoketServiceInstance.connect(this.props.username)
 		   //THIS FN MAKES SURE CONNECTION IS SECURE
 		    this.waitforSocketConnection(()=>{
@@ -155,7 +155,9 @@ export class Sidepanel extends Component {
 			c=chat.participants.map(person=>{
 				if(person!==this.props.username){
 					x.push(person)
+
 				}
+				return
 			})
 			console.log(chat.participants,c,x)
 			

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import Booking from '../booking' ;
+// import Booking from '../booking' ;
 import { List, Avatar ,Button,notification,Modal,Card} from 'antd';
-import { MessageOutlined, LikeOutlined, StarOutlined,SmileOutlined} from '@ant-design/icons';
+import { SmileOutlined} from '@ant-design/icons';
 import axios from 'axios' ;
 //import CustomForm from '../../BookingForm/form';
 import UserLayout from '../../../../../containers/userLayout';
@@ -11,12 +11,7 @@ import {withRouter} from 'react-router-dom' ;
 import Absolutewrapper from '../../../../../components/Absolutewrapper';
 import NotWebscoketServiceInstance from '../../../../../Notification/notWebsocket'
 
-const IconText = ({ icon, text }) => (
-    <span>
-      {React.createElement(icon, { style: { marginRight: 8 } })}
-      {text}
-    </span>
-  );
+
   
 
 class PrevBookingslist extends Component {

@@ -60,7 +60,7 @@ componentWillUpdate(newProps) {
           <div>
           <div className="row justify-content-center align-items-center" style ={{ height : 'auto'}}>
             {/* <div className="col-lg-2 col-sm-2"></div> */}
-            <div className="col-lg-10 col-sm-10">
+            <div className="col-lg-10 col-sm-10 col-12">
               
               <img className="mb-2 img-responsive"src={place.image} alt=""style={{ width:'75vw',height:'auto' ,objectFit:'cover'}}></img>            
               <div className="mb-3">
@@ -80,18 +80,7 @@ componentWillUpdate(newProps) {
        
         <Carousel autoplay dotPosition='bottom' effect='fade'>
           {places}
-          {/* <div>
-            <h3>1</h3>
-          </div>
-          <div>
-            <h3>2</h3>
-          </div>
-          <div>
-            <h3>3</h3>
-          </div>
-          <div>
-            <h3>4</h3>
-          </div> */}
+         
         </Carousel>
       </div>
     );

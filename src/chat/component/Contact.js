@@ -78,7 +78,7 @@ export class Contact extends Component {
 										console.log(a)
 										if(i!==person_status.length-1 && a!==undefined){
 											return (<div style={{marginRight:'10px'}}><div><span>{a.username} and</span></div><div><p style={{fontSize:'11px'}}>{a.status}</p></div>  </div>)
-										}else if(a!==undefined){return (<div><div><span>{a.username}</span></div><div><p style={{fontSize:'11px'}}>{a.status}</p></div></div>)}
+										}else if(a!==undefined){return (<div><div><span>{a.username}</span></div><div><p style={{fontSize:'11px'}}>{a.status}</p></div></div>)}else{return null}
 									}) : ''}
 									 
 								</div>

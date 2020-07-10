@@ -21,7 +21,7 @@ const inputstyle={
   padding:'.3rem .1rem',
   backgroundColor:'rgba(227, 66, 142, 0.8)',
   borderRadius:'20px',
-  marginRight:'.8em',
+ 
   marginRight:'.6rem',
   outline:'none',
   width:'95%',
@@ -34,29 +34,29 @@ const inputstyle={
 
 }
 
-const DescriptionItem = ({ title, content }) => (
+// const DescriptionItem = ({ title, content }) => (
 
-  <div
-    className="site-description-item-profile-wrapper"
-    style={{
-      fontSize: 14,
-      lineHeight: '22px',
-      marginBottom: 7,
-      color:'black'
-    }}
-  >
-    <p
-      className="site-description-item-profile-p"
-      style={{
-        marginRight: 0,
-        display: 'inline-block',
-      }}
-    >
-      {title}:
-    </p>
-    {content}
-  </div>
-);
+//   <div
+//     className="site-description-item-profile-wrapper"
+//     style={{
+//       fontSize: 14,
+//       lineHeight: '22px',
+//       marginBottom: 7,
+//       color:'black'
+//     }}
+//   >
+//     <p
+//       className="site-description-item-profile-p"
+//       style={{
+//         marginRight: 0,
+//         display: 'inline-block',
+//       }}
+//     >
+//       {title}:
+//     </p>
+//     {content}
+//   </div>
+// );
 
 
 

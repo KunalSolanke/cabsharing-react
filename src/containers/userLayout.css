@@ -18,6 +18,7 @@
     font-size: 2.09rem;
     font-weight: 400;
 }
+
 .user-head .head-nav{
    
     display:flex ;
@@ -125,6 +126,12 @@
   @media (max-width:672px){
       .modal-dialog{
           width:90vw ;
+      }
+      .headera h3{
+          font-size: 1.5rem;
+      }
+      .headera{
+          padding-top:.8rem;
       }
   }
 
