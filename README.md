@@ -34,7 +34,7 @@ Humraahi - Makes travelling fun.
 
 
 # Install .
-Getting the frontend running
+Getting the frontend build:
  - npm install 
  - npm run build
 
@@ -47,7 +47,7 @@ Backend
   - python manage.py runserver
 
 
-  You can use react's 3000 as your development server . ALso you need to take care of your environment varialbles .Like github secret and google api secret and emailing backends.Also the change database settings according to your choice.
+  You can use react's 3000 as your development server . ALso you need to take care of your environment varialbles like github secret and google api secret and emailing backends.Also change the database settings according to your choice.
    
 
 
@@ -71,8 +71,8 @@ Backend
 
 
 
-   Match will be shown which are going to same lace and from same place at exact same date with time diff of +-3 hours .
-   Facebbok Login is not in place as I faced issues while implementing it with rest framework.
+   Matched booking will be shown which are going to same place and from same place ,at exact same date with time diff of +-3 hours .
+   Facebook Login is not in place, as I faced issues while implementing it with rest framework.
 
 
 
@@ -85,7 +85,7 @@ Backend
 
 
 # Todo 
-   1. Profile updating the profile pic .
+   1. Profile :  updating the profile pic .
       <br><p>     Either a sperate profile serializer need to be made or update existing one to parse file uploads
       </p>
 
@@ -97,7 +97,7 @@ Backend
   4. Aws deploy ??
       - The site is currently running on heroku at -
 <a href="https://humraahi-iitg.herokuapp.com/">https://humraahi-iitg.herokuapp.com/</a>
-But It has problems . As it turn out ,heroku needs credit card for more than one addons .So redis instance is not made which makes the notifications and chat features === NULL.
+But It has problems . As it turns out ,heroku needs credit card for more than one addons .So redis instance is not made which makes the notifications and chat features === NULL.
 
       - Some functionalities might be down on heroku deploy like
           1. redis-server is not added as heroku requires to add credit card to add two or more addons.
