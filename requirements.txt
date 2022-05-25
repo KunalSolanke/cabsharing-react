@@ -57,7 +57,7 @@ pycparser==2.20
 pycryptodome==3.9.7
 PyGetWindow==0.0.8
 PyHamcrest==2.0.2
-PyJWT==1.7.1
+PyJWT==2.4.0
 PyMsgBox==1.0.7
 pyOpenSSL==19.1.0
 pyperclip==1.7.0
