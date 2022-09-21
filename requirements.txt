@@ -65,7 +65,7 @@ pyperclip==1.7.0
 Pyrebase4==4.3.0
 PyRect==0.1.4
 PyScreeze==0.1.26
-python-jwt==2.0.1
+python-jwt==3.3.4
 python3-openid==3.1.0
 PyTweening==1.0.3
 pytz==2019.3
